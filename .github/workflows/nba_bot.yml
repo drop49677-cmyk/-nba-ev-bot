@@ -1,12 +1,9 @@
 name: 🏀 NBA Bot - Apuestas +EV Diarias
 
 on:
-  # ── Ejecución automática todos los días a las 6:00 AM UTC = 1:00 AM Colombia ──
   schedule:
-    - cron: '0 6 * * *'
-
-  # ── También puedes ejecutarlo manualmente desde GitHub si necesitas ──
-  workflow_dispatch:
+    - cron: '0 6 * * *'   # 6:00 AM UTC = 1:00 AM Colombia
+  workflow_dispatch:       # Ejecución manual desde GitHub
 
 jobs:
   run-ev-bot:
@@ -14,22 +11,18 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # 1. Descargar el código del repositorio
       - name: 📥 Checkout del repositorio
         uses: actions/checkout@v4
 
-      # 2. Instalar Python 3.11
       - name: 🐍 Configurar Python 3.11
         uses: actions/setup-python@v5
         with:
           python-version: '3.11'
           cache: 'pip'
 
-      # 3. Instalar dependencias
       - name: 📦 Instalar dependencias
         run: pip install -r requirements.txt
 
-      # 4. Crear el archivo .env con los secretos de GitHub
       - name: 🔐 Crear archivo .env con secretos
         run: |
           echo "SUPABASE_URL=${{ secrets.SUPABASE_URL }}" >> .env
@@ -38,6 +31,12 @@ jobs:
           echo "TELEGRAM_BOT_TOKEN=${{ secrets.TELEGRAM_BOT_TOKEN }}" >> .env
           echo "TELEGRAM_CHAT_ID=${{ secrets.TELEGRAM_CHAT_ID }}" >> .env
 
-      # 5. Ejecutar el pipeline completo
-      - name: 🤖 Ejecutar Bot (odds → analyzer → Telegram)
-        run: python run_bot.py
+      - name: 📊 Paso 1 - Descargar cuotas de casinos (odds.py)
+        run: python odds.py
+
+      - name: 🔄 Paso 2 - Actualizar stats desde Supabase (update_stats.py)
+        run: python update_stats.py
+        continue-on-error: true   # Si falla (IP bloqueada), el análisis usa datos previos
+
+      - name: 🤖 Paso 3 - Analizar y enviar apuestas a Telegram (analyzer.py)
+        run: python analyzer.py
