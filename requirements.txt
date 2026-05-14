@@ -1,8 +1,7 @@
 # Dependencias del NBA +EV Bot
-supabase==2.15.2
-requests==2.32.3
-pandas==2.2.3
-python-dotenv==1.1.0
-nba_api==1.5.2
-numpy==2.2.5
-httpx==0.28.1
+supabase
+requests
+pandas
+python-dotenv
+nba_api
+numpy
