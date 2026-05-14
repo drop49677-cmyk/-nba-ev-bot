@@ -1,0 +1,271 @@
+2026-05-14 12:53:12,672 - EV_Bot_Ingestion - INFO - === INICIANDO FASE 1: INGESTA DE DATOS ===
+2026-05-14 12:53:12,672 - EV_Bot_Ingestion - INFO - Consultando partidos para la fecha: 2026-05-14
+2026-05-14 12:53:13,484 - EV_Bot_Ingestion - INFO - Partidos programados para hoy en ligas objetivo: 0
+2026-05-14 12:53:13,484 - EV_Bot_Ingestion - WARNING - No se recolectaron estadísticas de jugadores. Terminando proceso.
+2026-05-14 12:54:25,907 - EV_Bot_Ingestion - INFO - === INICIANDO FASE 1: INGESTA DE DATOS ===
+2026-05-14 12:54:25,907 - EV_Bot_Ingestion - INFO - Consultando partidos para la fecha: 2026-05-14
+2026-05-14 12:54:26,343 - EV_Bot_Ingestion - INFO - Partidos programados para hoy en ligas objetivo: 0
+2026-05-14 12:54:26,344 - EV_Bot_Ingestion - WARNING - No se recolectaron estadísticas de jugadores. Terminando proceso.
+2026-05-14 12:55:30,422 - EV_Bot_Ingestion - INFO - === INICIANDO FASE 1: INGESTA DE DATOS ===
+2026-05-14 12:55:30,423 - EV_Bot_Ingestion - INFO - Consultando partidos para la fecha: 2026-05-14
+2026-05-14 12:55:31,165 - EV_Bot_Ingestion - INFO - Partidos programados para hoy en ligas objetivo: 0
+2026-05-14 12:55:31,166 - EV_Bot_Ingestion - WARNING - No se recolectaron estadísticas de jugadores. Terminando proceso.
+2026-05-14 13:04:17,767 - EV_Bot_Ingestion - INFO - === INICIANDO FASE 1: INGESTA DE DATOS ===
+2026-05-14 13:04:17,767 - EV_Bot_Ingestion - INFO - Consultando partidos para la fecha: 2026-05-13
+2026-05-14 13:04:18,667 - EV_Bot_Ingestion - INFO - Partidos programados para hoy en ligas objetivo: 1
+2026-05-14 13:04:18,667 - EV_Bot_Ingestion - INFO - Procesando partido 21709235 de la liga NBA
+2026-05-14 13:04:22,340 - EV_Bot_Ingestion - ERROR - Error consultando stats del jugador 35: 401 Client Error: Unauthorized for url: https://api.balldontlie.io/v1/stats?player_ids%5B%5D=35&per_page=10&seasons%5B%5D=2025
+2026-05-14 13:04:23,576 - EV_Bot_Ingestion - ERROR - Error consultando stats del jugador 38: 401 Client Error: Unauthorized for url: https://api.balldontlie.io/v1/stats?player_ids%5B%5D=38&per_page=10&seasons%5B%5D=2025
+2026-05-14 13:04:24,809 - EV_Bot_Ingestion - ERROR - Error consultando stats del jugador 68: 401 Client Error: Unauthorized for url: https://api.balldontlie.io/v1/stats?player_ids%5B%5D=68&per_page=10&seasons%5B%5D=2025
+2026-05-14 13:04:25,996 - EV_Bot_Ingestion - ERROR - Error consultando stats del jugador 143: 401 Client Error: Unauthorized for url: https://api.balldontlie.io/v1/stats?player_ids%5B%5D=143&per_page=10&seasons%5B%5D=2025
+2026-05-14 13:04:27,176 - EV_Bot_Ingestion - ERROR - Error consultando stats del jugador 149: 401 Client Error: Unauthorized for url: https://api.balldontlie.io/v1/stats?player_ids%5B%5D=149&per_page=10&seasons%5B%5D=2025
+2026-05-14 13:04:28,391 - EV_Bot_Ingestion - ERROR - Error consultando stats del jugador 160: 401 Client Error: Unauthorized for url: https://api.balldontlie.io/v1/stats?player_ids%5B%5D=160&per_page=10&seasons%5B%5D=2025
+2026-05-14 13:04:29,579 - EV_Bot_Ingestion - ERROR - Error consultando stats del jugador 197: 401 Client Error: Unauthorized for url: https://api.balldontlie.io/v1/stats?player_ids%5B%5D=197&per_page=10&seasons%5B%5D=2025
+2026-05-14 13:04:30,770 - EV_Bot_Ingestion - ERROR - Error consultando stats del jugador 200: 401 Client Error: Unauthorized for url: https://api.balldontlie.io/v1/stats?player_ids%5B%5D=200&per_page=10&seasons%5B%5D=2025
+2026-05-14 13:04:31,943 - EV_Bot_Ingestion - ERROR - Error consultando stats del jugador 221: 401 Client Error: Unauthorized for url: https://api.balldontlie.io/v1/stats?player_ids%5B%5D=221&per_page=10&seasons%5B%5D=2025
+2026-05-14 13:04:33,133 - EV_Bot_Ingestion - ERROR - Error consultando stats del jugador 239: 401 Client Error: Unauthorized for url: https://api.balldontlie.io/v1/stats?player_ids%5B%5D=239&per_page=10&seasons%5B%5D=2025
+2026-05-14 13:04:34,314 - EV_Bot_Ingestion - ERROR - Error consultando stats del jugador 277: 401 Client Error: Unauthorized for url: https://api.balldontlie.io/v1/stats?player_ids%5B%5D=277&per_page=10&seasons%5B%5D=2025
+2026-05-14 13:04:35,538 - EV_Bot_Ingestion - ERROR - Error consultando stats del jugador 281: 401 Client Error: Unauthorized for url: https://api.balldontlie.io/v1/stats?player_ids%5B%5D=281&per_page=10&seasons%5B%5D=2025
+2026-05-14 13:04:36,978 - EV_Bot_Ingestion - ERROR - Error consultando stats del jugador 314: 401 Client Error: Unauthorized for url: https://api.balldontlie.io/v1/stats?player_ids%5B%5D=314&per_page=10&seasons%5B%5D=2025
+2026-05-14 13:04:38,187 - EV_Bot_Ingestion - ERROR - Error consultando stats del jugador 397: 401 Client Error: Unauthorized for url: https://api.balldontlie.io/v1/stats?player_ids%5B%5D=397&per_page=10&seasons%5B%5D=2025
+2026-05-14 13:04:39,385 - EV_Bot_Ingestion - ERROR - Error consultando stats del jugador 441: 401 Client Error: Unauthorized for url: https://api.balldontlie.io/v1/stats?player_ids%5B%5D=441&per_page=10&seasons%5B%5D=2025
+2026-05-14 13:04:40,570 - EV_Bot_Ingestion - ERROR - Error consultando stats del jugador 446: 401 Client Error: Unauthorized for url: https://api.balldontlie.io/v1/stats?player_ids%5B%5D=446&per_page=10&seasons%5B%5D=2025
+2026-05-14 13:04:41,775 - EV_Bot_Ingestion - ERROR - Error consultando stats del jugador 498: 401 Client Error: Unauthorized for url: https://api.balldontlie.io/v1/stats?player_ids%5B%5D=498&per_page=10&seasons%5B%5D=2025
+2026-05-14 13:04:42,965 - EV_Bot_Ingestion - ERROR - Error consultando stats del jugador 513: 401 Client Error: Unauthorized for url: https://api.balldontlie.io/v1/stats?player_ids%5B%5D=513&per_page=10&seasons%5B%5D=2025
+2026-05-14 13:04:44,171 - EV_Bot_Ingestion - ERROR - Error consultando stats del jugador 533: 401 Client Error: Unauthorized for url: https://api.balldontlie.io/v1/stats?player_ids%5B%5D=533&per_page=10&seasons%5B%5D=2025
+2026-05-14 13:04:45,372 - EV_Bot_Ingestion - ERROR - Error consultando stats del jugador 534: 401 Client Error: Unauthorized for url: https://api.balldontlie.io/v1/stats?player_ids%5B%5D=534&per_page=10&seasons%5B%5D=2025
+2026-05-14 13:04:46,596 - EV_Bot_Ingestion - ERROR - Error consultando stats del jugador 552: 401 Client Error: Unauthorized for url: https://api.balldontlie.io/v1/stats?player_ids%5B%5D=552&per_page=10&seasons%5B%5D=2025
+2026-05-14 13:04:47,792 - EV_Bot_Ingestion - ERROR - Error consultando stats del jugador 567: 401 Client Error: Unauthorized for url: https://api.balldontlie.io/v1/stats?player_ids%5B%5D=567&per_page=10&seasons%5B%5D=2025
+2026-05-14 13:04:49,007 - EV_Bot_Ingestion - ERROR - Error consultando stats del jugador 595: 401 Client Error: Unauthorized for url: https://api.balldontlie.io/v1/stats?player_ids%5B%5D=595&per_page=10&seasons%5B%5D=2025
+2026-05-14 13:04:50,193 - EV_Bot_Ingestion - ERROR - Error consultando stats del jugador 610: 401 Client Error: Unauthorized for url: https://api.balldontlie.io/v1/stats?player_ids%5B%5D=610&per_page=10&seasons%5B%5D=2025
+2026-05-14 13:04:51,389 - EV_Bot_Ingestion - ERROR - Error consultando stats del jugador 667: 401 Client Error: Unauthorized for url: https://api.balldontlie.io/v1/stats?player_ids%5B%5D=667&per_page=10&seasons%5B%5D=2025
+2026-05-14 13:04:52,577 - EV_Bot_Ingestion - ERROR - Error consultando stats del jugador 703: 401 Client Error: Unauthorized for url: https://api.balldontlie.io/v1/stats?player_ids%5B%5D=703&per_page=10&seasons%5B%5D=2025
+2026-05-14 13:04:53,780 - EV_Bot_Ingestion - ERROR - Error consultando stats del jugador 773: 401 Client Error: Unauthorized for url: https://api.balldontlie.io/v1/stats?player_ids%5B%5D=773&per_page=10&seasons%5B%5D=2025
+2026-05-14 13:04:54,993 - EV_Bot_Ingestion - ERROR - Error consultando stats del jugador 777: 401 Client Error: Unauthorized for url: https://api.balldontlie.io/v1/stats?player_ids%5B%5D=777&per_page=10&seasons%5B%5D=2025
+2026-05-14 13:04:56,182 - EV_Bot_Ingestion - ERROR - Error consultando stats del jugador 791: 401 Client Error: Unauthorized for url: https://api.balldontlie.io/v1/stats?player_ids%5B%5D=791&per_page=10&seasons%5B%5D=2025
+2026-05-14 13:04:57,388 - EV_Bot_Ingestion - ERROR - Error consultando stats del jugador 817: 401 Client Error: Unauthorized for url: https://api.balldontlie.io/v1/stats?player_ids%5B%5D=817&per_page=10&seasons%5B%5D=2025
+2026-05-14 13:04:58,873 - EV_Bot_Ingestion - ERROR - Error consultando stats del jugador 835: 401 Client Error: Unauthorized for url: https://api.balldontlie.io/v1/stats?player_ids%5B%5D=835&per_page=10&seasons%5B%5D=2025
+2026-05-14 13:05:00,071 - EV_Bot_Ingestion - ERROR - Error consultando stats del jugador 879: 401 Client Error: Unauthorized for url: https://api.balldontlie.io/v1/stats?player_ids%5B%5D=879&per_page=10&seasons%5B%5D=2025
+2026-05-14 13:05:01,256 - EV_Bot_Ingestion - ERROR - Error consultando stats del jugador 887: 401 Client Error: Unauthorized for url: https://api.balldontlie.io/v1/stats?player_ids%5B%5D=887&per_page=10&seasons%5B%5D=2025
+2026-05-14 13:05:02,482 - EV_Bot_Ingestion - ERROR - Error consultando stats del jugador 902: 401 Client Error: Unauthorized for url: https://api.balldontlie.io/v1/stats?player_ids%5B%5D=902&per_page=10&seasons%5B%5D=2025
+2026-05-14 13:05:03,745 - EV_Bot_Ingestion - ERROR - Error consultando stats del jugador 946: 401 Client Error: Unauthorized for url: https://api.balldontlie.io/v1/stats?player_ids%5B%5D=946&per_page=10&seasons%5B%5D=2025
+2026-05-14 13:05:04,972 - EV_Bot_Ingestion - ERROR - Error consultando stats del jugador 963: 401 Client Error: Unauthorized for url: https://api.balldontlie.io/v1/stats?player_ids%5B%5D=963&per_page=10&seasons%5B%5D=2025
+2026-05-14 13:05:06,179 - EV_Bot_Ingestion - ERROR - Error consultando stats del jugador 965: 401 Client Error: Unauthorized for url: https://api.balldontlie.io/v1/stats?player_ids%5B%5D=965&per_page=10&seasons%5B%5D=2025
+2026-05-14 13:05:07,403 - EV_Bot_Ingestion - ERROR - Error consultando stats del jugador 977: 401 Client Error: Unauthorized for url: https://api.balldontlie.io/v1/stats?player_ids%5B%5D=977&per_page=10&seasons%5B%5D=2025
+2026-05-14 13:05:08,600 - EV_Bot_Ingestion - ERROR - Error consultando stats del jugador 1013: 401 Client Error: Unauthorized for url: https://api.balldontlie.io/v1/stats?player_ids%5B%5D=1013&per_page=10&seasons%5B%5D=2025
+2026-05-14 13:05:09,817 - EV_Bot_Ingestion - ERROR - Error consultando stats del jugador 1020: 401 Client Error: Unauthorized for url: https://api.balldontlie.io/v1/stats?player_ids%5B%5D=1020&per_page=10&seasons%5B%5D=2025
+2026-05-14 13:05:11,034 - EV_Bot_Ingestion - ERROR - Error consultando stats del jugador 1097: 401 Client Error: Unauthorized for url: https://api.balldontlie.io/v1/stats?player_ids%5B%5D=1097&per_page=10&seasons%5B%5D=2025
+2026-05-14 13:05:12,319 - EV_Bot_Ingestion - ERROR - Error consultando stats del jugador 1131: 401 Client Error: Unauthorized for url: https://api.balldontlie.io/v1/stats?player_ids%5B%5D=1131&per_page=10&seasons%5B%5D=2025
+2026-05-14 13:05:13,522 - EV_Bot_Ingestion - ERROR - Error consultando stats del jugador 1157: 401 Client Error: Unauthorized for url: https://api.balldontlie.io/v1/stats?player_ids%5B%5D=1157&per_page=10&seasons%5B%5D=2025
+2026-05-14 13:05:15,088 - EV_Bot_Ingestion - ERROR - Error consultando stats del jugador 1208: 401 Client Error: Unauthorized for url: https://api.balldontlie.io/v1/stats?player_ids%5B%5D=1208&per_page=10&seasons%5B%5D=2025
+2026-05-14 13:05:16,275 - EV_Bot_Ingestion - ERROR - Error consultando stats del jugador 1236: 401 Client Error: Unauthorized for url: https://api.balldontlie.io/v1/stats?player_ids%5B%5D=1236&per_page=10&seasons%5B%5D=2025
+2026-05-14 13:05:17,473 - EV_Bot_Ingestion - ERROR - Error consultando stats del jugador 1245: 401 Client Error: Unauthorized for url: https://api.balldontlie.io/v1/stats?player_ids%5B%5D=1245&per_page=10&seasons%5B%5D=2025
+2026-05-14 13:05:18,687 - EV_Bot_Ingestion - ERROR - Error consultando stats del jugador 1302: 401 Client Error: Unauthorized for url: https://api.balldontlie.io/v1/stats?player_ids%5B%5D=1302&per_page=10&seasons%5B%5D=2025
+2026-05-14 13:05:19,920 - EV_Bot_Ingestion - ERROR - Error consultando stats del jugador 1362: 401 Client Error: Unauthorized for url: https://api.balldontlie.io/v1/stats?player_ids%5B%5D=1362&per_page=10&seasons%5B%5D=2025
+2026-05-14 13:05:21,318 - EV_Bot_Ingestion - ERROR - Error consultando stats del jugador 1400: 401 Client Error: Unauthorized for url: https://api.balldontlie.io/v1/stats?player_ids%5B%5D=1400&per_page=10&seasons%5B%5D=2025
+2026-05-14 13:05:22,595 - EV_Bot_Ingestion - ERROR - Error consultando stats del jugador 1416: 401 Client Error: Unauthorized for url: https://api.balldontlie.io/v1/stats?player_ids%5B%5D=1416&per_page=10&seasons%5B%5D=2025
+2026-05-14 13:05:23,923 - EV_Bot_Ingestion - ERROR - Error consultando stats del jugador 1520: 401 Client Error: Unauthorized for url: https://api.balldontlie.io/v1/stats?player_ids%5B%5D=1520&per_page=10&seasons%5B%5D=2025
+2026-05-14 13:05:25,281 - EV_Bot_Ingestion - ERROR - Error consultando stats del jugador 1529: 401 Client Error: Unauthorized for url: https://api.balldontlie.io/v1/stats?player_ids%5B%5D=1529&per_page=10&seasons%5B%5D=2025
+2026-05-14 13:05:26,607 - EV_Bot_Ingestion - ERROR - Error consultando stats del jugador 1575: 401 Client Error: Unauthorized for url: https://api.balldontlie.io/v1/stats?player_ids%5B%5D=1575&per_page=10&seasons%5B%5D=2025
+2026-05-14 13:05:27,810 - EV_Bot_Ingestion - ERROR - Error consultando stats del jugador 1627: 401 Client Error: Unauthorized for url: https://api.balldontlie.io/v1/stats?player_ids%5B%5D=1627&per_page=10&seasons%5B%5D=2025
+2026-05-14 13:05:29,114 - EV_Bot_Ingestion - ERROR - Error consultando stats del jugador 1628: 401 Client Error: Unauthorized for url: https://api.balldontlie.io/v1/stats?player_ids%5B%5D=1628&per_page=10&seasons%5B%5D=2025
+2026-05-14 13:05:30,520 - EV_Bot_Ingestion - ERROR - Error consultando stats del jugador 1667: 401 Client Error: Unauthorized for url: https://api.balldontlie.io/v1/stats?player_ids%5B%5D=1667&per_page=10&seasons%5B%5D=2025
+2026-05-14 13:05:31,793 - EV_Bot_Ingestion - ERROR - Error consultando stats del jugador 1693: 401 Client Error: Unauthorized for url: https://api.balldontlie.io/v1/stats?player_ids%5B%5D=1693&per_page=10&seasons%5B%5D=2025
+2026-05-14 13:05:32,988 - EV_Bot_Ingestion - ERROR - Error consultando stats del jugador 1724: 401 Client Error: Unauthorized for url: https://api.balldontlie.io/v1/stats?player_ids%5B%5D=1724&per_page=10&seasons%5B%5D=2025
+2026-05-14 13:05:34,600 - EV_Bot_Ingestion - ERROR - Error consultando stats del jugador 1784: 401 Client Error: Unauthorized for url: https://api.balldontlie.io/v1/stats?player_ids%5B%5D=1784&per_page=10&seasons%5B%5D=2025
+2026-05-14 13:05:35,793 - EV_Bot_Ingestion - ERROR - Error consultando stats del jugador 1820: 401 Client Error: Unauthorized for url: https://api.balldontlie.io/v1/stats?player_ids%5B%5D=1820&per_page=10&seasons%5B%5D=2025
+2026-05-14 13:05:37,010 - EV_Bot_Ingestion - ERROR - Error consultando stats del jugador 1853: 401 Client Error: Unauthorized for url: https://api.balldontlie.io/v1/stats?player_ids%5B%5D=1853&per_page=10&seasons%5B%5D=2025
+2026-05-14 13:05:38,206 - EV_Bot_Ingestion - ERROR - Error consultando stats del jugador 1861: 401 Client Error: Unauthorized for url: https://api.balldontlie.io/v1/stats?player_ids%5B%5D=1861&per_page=10&seasons%5B%5D=2025
+2026-05-14 13:05:39,392 - EV_Bot_Ingestion - ERROR - Error consultando stats del jugador 1940: 401 Client Error: Unauthorized for url: https://api.balldontlie.io/v1/stats?player_ids%5B%5D=1940&per_page=10&seasons%5B%5D=2025
+2026-05-14 13:05:40,578 - EV_Bot_Ingestion - ERROR - Error consultando stats del jugador 1967: 401 Client Error: Unauthorized for url: https://api.balldontlie.io/v1/stats?player_ids%5B%5D=1967&per_page=10&seasons%5B%5D=2025
+2026-05-14 13:05:41,758 - EV_Bot_Ingestion - ERROR - Error consultando stats del jugador 1990: 401 Client Error: Unauthorized for url: https://api.balldontlie.io/v1/stats?player_ids%5B%5D=1990&per_page=10&seasons%5B%5D=2025
+2026-05-14 13:05:42,969 - EV_Bot_Ingestion - ERROR - Error consultando stats del jugador 1991: 401 Client Error: Unauthorized for url: https://api.balldontlie.io/v1/stats?player_ids%5B%5D=1991&per_page=10&seasons%5B%5D=2025
+2026-05-14 13:05:44,177 - EV_Bot_Ingestion - ERROR - Error consultando stats del jugador 2018: 401 Client Error: Unauthorized for url: https://api.balldontlie.io/v1/stats?player_ids%5B%5D=2018&per_page=10&seasons%5B%5D=2025
+2026-05-14 13:05:45,371 - EV_Bot_Ingestion - ERROR - Error consultando stats del jugador 2034: 401 Client Error: Unauthorized for url: https://api.balldontlie.io/v1/stats?player_ids%5B%5D=2034&per_page=10&seasons%5B%5D=2025
+2026-05-14 13:05:46,592 - EV_Bot_Ingestion - ERROR - Error consultando stats del jugador 2039: 401 Client Error: Unauthorized for url: https://api.balldontlie.io/v1/stats?player_ids%5B%5D=2039&per_page=10&seasons%5B%5D=2025
+2026-05-14 13:05:47,795 - EV_Bot_Ingestion - ERROR - Error consultando stats del jugador 2040: 401 Client Error: Unauthorized for url: https://api.balldontlie.io/v1/stats?player_ids%5B%5D=2040&per_page=10&seasons%5B%5D=2025
+2026-05-14 13:05:48,993 - EV_Bot_Ingestion - ERROR - Error consultando stats del jugador 2041: 401 Client Error: Unauthorized for url: https://api.balldontlie.io/v1/stats?player_ids%5B%5D=2041&per_page=10&seasons%5B%5D=2025
+2026-05-14 13:05:50,179 - EV_Bot_Ingestion - ERROR - Error consultando stats del jugador 2106: 401 Client Error: Unauthorized for url: https://api.balldontlie.io/v1/stats?player_ids%5B%5D=2106&per_page=10&seasons%5B%5D=2025
+2026-05-14 13:05:51,346 - EV_Bot_Ingestion - ERROR - Error consultando stats del jugador 2127: 401 Client Error: Unauthorized for url: https://api.balldontlie.io/v1/stats?player_ids%5B%5D=2127&per_page=10&seasons%5B%5D=2025
+2026-05-14 13:05:52,571 - EV_Bot_Ingestion - ERROR - Error consultando stats del jugador 2163: 401 Client Error: Unauthorized for url: https://api.balldontlie.io/v1/stats?player_ids%5B%5D=2163&per_page=10&seasons%5B%5D=2025
+2026-05-14 13:05:54,103 - EV_Bot_Ingestion - ERROR - Error consultando stats del jugador 2208: 401 Client Error: Unauthorized for url: https://api.balldontlie.io/v1/stats?player_ids%5B%5D=2208&per_page=10&seasons%5B%5D=2025
+2026-05-14 13:05:55,301 - EV_Bot_Ingestion - ERROR - Error consultando stats del jugador 2220: 401 Client Error: Unauthorized for url: https://api.balldontlie.io/v1/stats?player_ids%5B%5D=2220&per_page=10&seasons%5B%5D=2025
+2026-05-14 13:05:56,687 - EV_Bot_Ingestion - ERROR - Error consultando stats del jugador 2253: 401 Client Error: Unauthorized for url: https://api.balldontlie.io/v1/stats?player_ids%5B%5D=2253&per_page=10&seasons%5B%5D=2025
+2026-05-14 13:05:57,854 - EV_Bot_Ingestion - ERROR - Error consultando stats del jugador 2281: 401 Client Error: Unauthorized for url: https://api.balldontlie.io/v1/stats?player_ids%5B%5D=2281&per_page=10&seasons%5B%5D=2025
+2026-05-14 13:05:59,048 - EV_Bot_Ingestion - ERROR - Error consultando stats del jugador 2323: 401 Client Error: Unauthorized for url: https://api.balldontlie.io/v1/stats?player_ids%5B%5D=2323&per_page=10&seasons%5B%5D=2025
+2026-05-14 13:06:00,230 - EV_Bot_Ingestion - ERROR - Error consultando stats del jugador 2328: 401 Client Error: Unauthorized for url: https://api.balldontlie.io/v1/stats?player_ids%5B%5D=2328&per_page=10&seasons%5B%5D=2025
+2026-05-14 13:06:01,423 - EV_Bot_Ingestion - ERROR - Error consultando stats del jugador 2330: 401 Client Error: Unauthorized for url: https://api.balldontlie.io/v1/stats?player_ids%5B%5D=2330&per_page=10&seasons%5B%5D=2025
+2026-05-14 13:06:02,634 - EV_Bot_Ingestion - ERROR - Error consultando stats del jugador 2331: 401 Client Error: Unauthorized for url: https://api.balldontlie.io/v1/stats?player_ids%5B%5D=2331&per_page=10&seasons%5B%5D=2025
+2026-05-14 13:06:03,903 - EV_Bot_Ingestion - ERROR - Error consultando stats del jugador 2332: 401 Client Error: Unauthorized for url: https://api.balldontlie.io/v1/stats?player_ids%5B%5D=2332&per_page=10&seasons%5B%5D=2025
+2026-05-14 13:06:05,215 - EV_Bot_Ingestion - ERROR - Error consultando stats del jugador 2345: 401 Client Error: Unauthorized for url: https://api.balldontlie.io/v1/stats?player_ids%5B%5D=2345&per_page=10&seasons%5B%5D=2025
+2026-05-14 13:06:06,419 - EV_Bot_Ingestion - ERROR - Error consultando stats del jugador 2390: 401 Client Error: Unauthorized for url: https://api.balldontlie.io/v1/stats?player_ids%5B%5D=2390&per_page=10&seasons%5B%5D=2025
+2026-05-14 13:06:07,688 - EV_Bot_Ingestion - ERROR - Error consultando stats del jugador 2437: 401 Client Error: Unauthorized for url: https://api.balldontlie.io/v1/stats?player_ids%5B%5D=2437&per_page=10&seasons%5B%5D=2025
+2026-05-14 13:06:09,018 - EV_Bot_Ingestion - ERROR - Error consultando stats del jugador 2462: 401 Client Error: Unauthorized for url: https://api.balldontlie.io/v1/stats?player_ids%5B%5D=2462&per_page=10&seasons%5B%5D=2025
+2026-05-14 13:06:10,231 - EV_Bot_Ingestion - ERROR - Error consultando stats del jugador 2463: 401 Client Error: Unauthorized for url: https://api.balldontlie.io/v1/stats?player_ids%5B%5D=2463&per_page=10&seasons%5B%5D=2025
+2026-05-14 13:06:11,431 - EV_Bot_Ingestion - ERROR - Error consultando stats del jugador 2466: 401 Client Error: Unauthorized for url: https://api.balldontlie.io/v1/stats?player_ids%5B%5D=2466&per_page=10&seasons%5B%5D=2025
+2026-05-14 13:06:12,692 - EV_Bot_Ingestion - ERROR - Error consultando stats del jugador 2506: 401 Client Error: Unauthorized for url: https://api.balldontlie.io/v1/stats?player_ids%5B%5D=2506&per_page=10&seasons%5B%5D=2025
+2026-05-14 13:06:13,866 - EV_Bot_Ingestion - ERROR - Error consultando stats del jugador 2514: 401 Client Error: Unauthorized for url: https://api.balldontlie.io/v1/stats?player_ids%5B%5D=2514&per_page=10&seasons%5B%5D=2025
+2026-05-14 13:06:15,038 - EV_Bot_Ingestion - ERROR - Error consultando stats del jugador 2515: 401 Client Error: Unauthorized for url: https://api.balldontlie.io/v1/stats?player_ids%5B%5D=2515&per_page=10&seasons%5B%5D=2025
+2026-05-14 13:06:16,216 - EV_Bot_Ingestion - ERROR - Error consultando stats del jugador 2516: 401 Client Error: Unauthorized for url: https://api.balldontlie.io/v1/stats?player_ids%5B%5D=2516&per_page=10&seasons%5B%5D=2025
+2026-05-14 13:06:17,396 - EV_Bot_Ingestion - ERROR - Error consultando stats del jugador 2556: 401 Client Error: Unauthorized for url: https://api.balldontlie.io/v1/stats?player_ids%5B%5D=2556&per_page=10&seasons%5B%5D=2025
+2026-05-14 13:06:18,579 - EV_Bot_Ingestion - ERROR - Error consultando stats del jugador 2564: 401 Client Error: Unauthorized for url: https://api.balldontlie.io/v1/stats?player_ids%5B%5D=2564&per_page=10&seasons%5B%5D=2025
+2026-05-14 13:06:19,819 - EV_Bot_Ingestion - ERROR - Error consultando stats del jugador 2602: 401 Client Error: Unauthorized for url: https://api.balldontlie.io/v1/stats?player_ids%5B%5D=2602&per_page=10&seasons%5B%5D=2025
+2026-05-14 13:06:21,075 - EV_Bot_Ingestion - ERROR - Error consultando stats del jugador 2638: 401 Client Error: Unauthorized for url: https://api.balldontlie.io/v1/stats?player_ids%5B%5D=2638&per_page=10&seasons%5B%5D=2025
+2026-05-14 13:06:22,301 - EV_Bot_Ingestion - ERROR - Error consultando stats del jugador 2639: 401 Client Error: Unauthorized for url: https://api.balldontlie.io/v1/stats?player_ids%5B%5D=2639&per_page=10&seasons%5B%5D=2025
+2026-05-14 13:06:23,474 - EV_Bot_Ingestion - ERROR - Error consultando stats del jugador 2645: 401 Client Error: Unauthorized for url: https://api.balldontlie.io/v1/stats?player_ids%5B%5D=2645&per_page=10&seasons%5B%5D=2025
+2026-05-14 13:06:24,674 - EV_Bot_Ingestion - ERROR - Error consultando stats del jugador 2678: 401 Client Error: Unauthorized for url: https://api.balldontlie.io/v1/stats?player_ids%5B%5D=2678&per_page=10&seasons%5B%5D=2025
+2026-05-14 13:06:25,849 - EV_Bot_Ingestion - ERROR - Error consultando stats del jugador 9: 401 Client Error: Unauthorized for url: https://api.balldontlie.io/v1/stats?player_ids%5B%5D=9&per_page=10&seasons%5B%5D=2025
+2026-05-14 13:06:27,037 - EV_Bot_Ingestion - ERROR - Error consultando stats del jugador 27: 401 Client Error: Unauthorized for url: https://api.balldontlie.io/v1/stats?player_ids%5B%5D=27&per_page=10&seasons%5B%5D=2025
+2026-05-14 13:06:28,204 - EV_Bot_Ingestion - ERROR - Error consultando stats del jugador 74: 401 Client Error: Unauthorized for url: https://api.balldontlie.io/v1/stats?player_ids%5B%5D=74&per_page=10&seasons%5B%5D=2025
+2026-05-14 13:06:29,482 - EV_Bot_Ingestion - ERROR - Error consultando stats del jugador 118: 401 Client Error: Unauthorized for url: https://api.balldontlie.io/v1/stats?player_ids%5B%5D=118&per_page=10&seasons%5B%5D=2025
+2026-05-14 13:06:30,668 - EV_Bot_Ingestion - ERROR - Error consultando stats del jugador 163: 401 Client Error: Unauthorized for url: https://api.balldontlie.io/v1/stats?player_ids%5B%5D=163&per_page=10&seasons%5B%5D=2025
+2026-05-14 13:06:31,853 - EV_Bot_Ingestion - ERROR - Error consultando stats del jugador 192: 401 Client Error: Unauthorized for url: https://api.balldontlie.io/v1/stats?player_ids%5B%5D=192&per_page=10&seasons%5B%5D=2025
+2026-05-14 13:06:33,051 - EV_Bot_Ingestion - ERROR - Error consultando stats del jugador 248: 401 Client Error: Unauthorized for url: https://api.balldontlie.io/v1/stats?player_ids%5B%5D=248&per_page=10&seasons%5B%5D=2025
+2026-05-14 13:06:34,236 - EV_Bot_Ingestion - ERROR - Error consultando stats del jugador 322: 401 Client Error: Unauthorized for url: https://api.balldontlie.io/v1/stats?player_ids%5B%5D=322&per_page=10&seasons%5B%5D=2025
+2026-05-14 13:06:35,457 - EV_Bot_Ingestion - ERROR - Error consultando stats del jugador 328: 401 Client Error: Unauthorized for url: https://api.balldontlie.io/v1/stats?player_ids%5B%5D=328&per_page=10&seasons%5B%5D=2025
+2026-05-14 13:06:36,669 - EV_Bot_Ingestion - ERROR - Error consultando stats del jugador 340: 401 Client Error: Unauthorized for url: https://api.balldontlie.io/v1/stats?player_ids%5B%5D=340&per_page=10&seasons%5B%5D=2025
+2026-05-14 13:06:37,850 - EV_Bot_Ingestion - ERROR - Error consultando stats del jugador 343: 401 Client Error: Unauthorized for url: https://api.balldontlie.io/v1/stats?player_ids%5B%5D=343&per_page=10&seasons%5B%5D=2025
+2026-05-14 13:06:39,092 - EV_Bot_Ingestion - ERROR - Error consultando stats del jugador 382: 401 Client Error: Unauthorized for url: https://api.balldontlie.io/v1/stats?player_ids%5B%5D=382&per_page=10&seasons%5B%5D=2025
+2026-05-14 13:06:40,307 - EV_Bot_Ingestion - ERROR - Error consultando stats del jugador 400: 401 Client Error: Unauthorized for url: https://api.balldontlie.io/v1/stats?player_ids%5B%5D=400&per_page=10&seasons%5B%5D=2025
+2026-05-14 13:06:41,495 - EV_Bot_Ingestion - ERROR - Error consultando stats del jugador 404: 401 Client Error: Unauthorized for url: https://api.balldontlie.io/v1/stats?player_ids%5B%5D=404&per_page=10&seasons%5B%5D=2025
+2026-05-14 13:06:42,698 - EV_Bot_Ingestion - ERROR - Error consultando stats del jugador 409: 401 Client Error: Unauthorized for url: https://api.balldontlie.io/v1/stats?player_ids%5B%5D=409&per_page=10&seasons%5B%5D=2025
+2026-05-14 13:06:43,903 - EV_Bot_Ingestion - ERROR - Error consultando stats del jugador 444: 401 Client Error: Unauthorized for url: https://api.balldontlie.io/v1/stats?player_ids%5B%5D=444&per_page=10&seasons%5B%5D=2025
+2026-05-14 13:06:45,110 - EV_Bot_Ingestion - ERROR - Error consultando stats del jugador 463: 401 Client Error: Unauthorized for url: https://api.balldontlie.io/v1/stats?player_ids%5B%5D=463&per_page=10&seasons%5B%5D=2025
+2026-05-14 13:06:46,517 - EV_Bot_Ingestion - ERROR - Error consultando stats del jugador 492: 401 Client Error: Unauthorized for url: https://api.balldontlie.io/v1/stats?player_ids%5B%5D=492&per_page=10&seasons%5B%5D=2025
+2026-05-14 13:06:47,903 - EV_Bot_Ingestion - ERROR - Error consultando stats del jugador 495: 401 Client Error: Unauthorized for url: https://api.balldontlie.io/v1/stats?player_ids%5B%5D=495&per_page=10&seasons%5B%5D=2025
+2026-05-14 13:06:49,326 - EV_Bot_Ingestion - ERROR - Error consultando stats del jugador 529: 401 Client Error: Unauthorized for url: https://api.balldontlie.io/v1/stats?player_ids%5B%5D=529&per_page=10&seasons%5B%5D=2025
+2026-05-14 13:06:50,687 - EV_Bot_Ingestion - ERROR - Error consultando stats del jugador 544: 401 Client Error: Unauthorized for url: https://api.balldontlie.io/v1/stats?player_ids%5B%5D=544&per_page=10&seasons%5B%5D=2025
+2026-05-14 13:06:59,289 - EV_Bot_Ingestion - ERROR - Error consultando stats del jugador 548: 401 Client Error: Unauthorized for url: https://api.balldontlie.io/v1/stats?player_ids%5B%5D=548&per_page=10&seasons%5B%5D=2025
+2026-05-14 13:07:00,520 - EV_Bot_Ingestion - ERROR - Error consultando stats del jugador 620: 401 Client Error: Unauthorized for url: https://api.balldontlie.io/v1/stats?player_ids%5B%5D=620&per_page=10&seasons%5B%5D=2025
+2026-05-14 13:07:02,032 - EV_Bot_Ingestion - ERROR - Error consultando stats del jugador 640: 401 Client Error: Unauthorized for url: https://api.balldontlie.io/v1/stats?player_ids%5B%5D=640&per_page=10&seasons%5B%5D=2025
+2026-05-14 13:07:03,216 - EV_Bot_Ingestion - ERROR - Error consultando stats del jugador 649: 401 Client Error: Unauthorized for url: https://api.balldontlie.io/v1/stats?player_ids%5B%5D=649&per_page=10&seasons%5B%5D=2025
+2026-05-14 13:07:04,450 - EV_Bot_Ingestion - ERROR - Error consultando stats del jugador 669: 401 Client Error: Unauthorized for url: https://api.balldontlie.io/v1/stats?player_ids%5B%5D=669&per_page=10&seasons%5B%5D=2025
+2026-05-14 13:07:05,717 - EV_Bot_Ingestion - ERROR - Error consultando stats del jugador 674: 401 Client Error: Unauthorized for url: https://api.balldontlie.io/v1/stats?player_ids%5B%5D=674&per_page=10&seasons%5B%5D=2025
+2026-05-14 13:07:07,113 - EV_Bot_Ingestion - ERROR - Error consultando stats del jugador 722: 401 Client Error: Unauthorized for url: https://api.balldontlie.io/v1/stats?player_ids%5B%5D=722&per_page=10&seasons%5B%5D=2025
+2026-05-14 13:07:08,383 - EV_Bot_Ingestion - ERROR - Error consultando stats del jugador 724: 401 Client Error: Unauthorized for url: https://api.balldontlie.io/v1/stats?player_ids%5B%5D=724&per_page=10&seasons%5B%5D=2025
+2026-05-14 13:07:09,672 - EV_Bot_Ingestion - ERROR - Error consultando stats del jugador 778: 401 Client Error: Unauthorized for url: https://api.balldontlie.io/v1/stats?player_ids%5B%5D=778&per_page=10&seasons%5B%5D=2025
+2026-05-14 13:07:10,873 - EV_Bot_Ingestion - ERROR - Error consultando stats del jugador 798: 401 Client Error: Unauthorized for url: https://api.balldontlie.io/v1/stats?player_ids%5B%5D=798&per_page=10&seasons%5B%5D=2025
+2026-05-14 13:07:12,054 - EV_Bot_Ingestion - ERROR - Error consultando stats del jugador 809: 401 Client Error: Unauthorized for url: https://api.balldontlie.io/v1/stats?player_ids%5B%5D=809&per_page=10&seasons%5B%5D=2025
+2026-05-14 13:07:13,260 - EV_Bot_Ingestion - ERROR - Error consultando stats del jugador 840: 401 Client Error: Unauthorized for url: https://api.balldontlie.io/v1/stats?player_ids%5B%5D=840&per_page=10&seasons%5B%5D=2025
+2026-05-14 13:07:14,470 - EV_Bot_Ingestion - ERROR - Error consultando stats del jugador 895: 401 Client Error: Unauthorized for url: https://api.balldontlie.io/v1/stats?player_ids%5B%5D=895&per_page=10&seasons%5B%5D=2025
+2026-05-14 13:07:15,702 - EV_Bot_Ingestion - ERROR - Error consultando stats del jugador 896: 401 Client Error: Unauthorized for url: https://api.balldontlie.io/v1/stats?player_ids%5B%5D=896&per_page=10&seasons%5B%5D=2025
+2026-05-14 13:07:16,897 - EV_Bot_Ingestion - ERROR - Error consultando stats del jugador 966: 401 Client Error: Unauthorized for url: https://api.balldontlie.io/v1/stats?player_ids%5B%5D=966&per_page=10&seasons%5B%5D=2025
+2026-05-14 13:07:18,178 - EV_Bot_Ingestion - ERROR - Error consultando stats del jugador 967: 401 Client Error: Unauthorized for url: https://api.balldontlie.io/v1/stats?player_ids%5B%5D=967&per_page=10&seasons%5B%5D=2025
+2026-05-14 13:07:19,511 - EV_Bot_Ingestion - ERROR - Error consultando stats del jugador 1002: 401 Client Error: Unauthorized for url: https://api.balldontlie.io/v1/stats?player_ids%5B%5D=1002&per_page=10&seasons%5B%5D=2025
+2026-05-14 13:07:20,811 - EV_Bot_Ingestion - ERROR - Error consultando stats del jugador 1073: 401 Client Error: Unauthorized for url: https://api.balldontlie.io/v1/stats?player_ids%5B%5D=1073&per_page=10&seasons%5B%5D=2025
+2026-05-14 13:07:22,112 - EV_Bot_Ingestion - ERROR - Error consultando stats del jugador 1107: 401 Client Error: Unauthorized for url: https://api.balldontlie.io/v1/stats?player_ids%5B%5D=1107&per_page=10&seasons%5B%5D=2025
+2026-05-14 13:07:23,792 - EV_Bot_Ingestion - ERROR - Error consultando stats del jugador 1109: 401 Client Error: Unauthorized for url: https://api.balldontlie.io/v1/stats?player_ids%5B%5D=1109&per_page=10&seasons%5B%5D=2025
+2026-05-14 13:07:24,991 - EV_Bot_Ingestion - ERROR - Error consultando stats del jugador 1110: 401 Client Error: Unauthorized for url: https://api.balldontlie.io/v1/stats?player_ids%5B%5D=1110&per_page=10&seasons%5B%5D=2025
+2026-05-14 13:07:26,203 - EV_Bot_Ingestion - ERROR - Error consultando stats del jugador 1155: 401 Client Error: Unauthorized for url: https://api.balldontlie.io/v1/stats?player_ids%5B%5D=1155&per_page=10&seasons%5B%5D=2025
+2026-05-14 13:07:27,410 - EV_Bot_Ingestion - ERROR - Error consultando stats del jugador 1196: 401 Client Error: Unauthorized for url: https://api.balldontlie.io/v1/stats?player_ids%5B%5D=1196&per_page=10&seasons%5B%5D=2025
+2026-05-14 13:07:28,800 - EV_Bot_Ingestion - ERROR - Error consultando stats del jugador 1203: 401 Client Error: Unauthorized for url: https://api.balldontlie.io/v1/stats?player_ids%5B%5D=1203&per_page=10&seasons%5B%5D=2025
+2026-05-14 13:07:29,983 - EV_Bot_Ingestion - ERROR - Error consultando stats del jugador 1205: 401 Client Error: Unauthorized for url: https://api.balldontlie.io/v1/stats?player_ids%5B%5D=1205&per_page=10&seasons%5B%5D=2025
+2026-05-14 13:07:31,404 - EV_Bot_Ingestion - ERROR - Error consultando stats del jugador 1215: 401 Client Error: Unauthorized for url: https://api.balldontlie.io/v1/stats?player_ids%5B%5D=1215&per_page=10&seasons%5B%5D=2025
+2026-05-14 13:07:32,680 - EV_Bot_Ingestion - ERROR - Error consultando stats del jugador 1223: 401 Client Error: Unauthorized for url: https://api.balldontlie.io/v1/stats?player_ids%5B%5D=1223&per_page=10&seasons%5B%5D=2025
+2026-05-14 13:07:34,107 - EV_Bot_Ingestion - ERROR - Error consultando stats del jugador 1259: 401 Client Error: Unauthorized for url: https://api.balldontlie.io/v1/stats?player_ids%5B%5D=1259&per_page=10&seasons%5B%5D=2025
+2026-05-14 13:07:35,298 - EV_Bot_Ingestion - ERROR - Error consultando stats del jugador 1262: 401 Client Error: Unauthorized for url: https://api.balldontlie.io/v1/stats?player_ids%5B%5D=1262&per_page=10&seasons%5B%5D=2025
+2026-05-14 13:07:36,693 - EV_Bot_Ingestion - ERROR - Error consultando stats del jugador 1279: 401 Client Error: Unauthorized for url: https://api.balldontlie.io/v1/stats?player_ids%5B%5D=1279&per_page=10&seasons%5B%5D=2025
+2026-05-14 13:07:38,089 - EV_Bot_Ingestion - ERROR - Error consultando stats del jugador 1323: 401 Client Error: Unauthorized for url: https://api.balldontlie.io/v1/stats?player_ids%5B%5D=1323&per_page=10&seasons%5B%5D=2025
+2026-05-14 13:07:39,608 - EV_Bot_Ingestion - ERROR - Error consultando stats del jugador 1441: 401 Client Error: Unauthorized for url: https://api.balldontlie.io/v1/stats?player_ids%5B%5D=1441&per_page=10&seasons%5B%5D=2025
+2026-05-14 13:07:40,891 - EV_Bot_Ingestion - ERROR - Error consultando stats del jugador 1456: 401 Client Error: Unauthorized for url: https://api.balldontlie.io/v1/stats?player_ids%5B%5D=1456&per_page=10&seasons%5B%5D=2025
+2026-05-14 13:07:42,110 - EV_Bot_Ingestion - ERROR - Error consultando stats del jugador 1484: 401 Client Error: Unauthorized for url: https://api.balldontlie.io/v1/stats?player_ids%5B%5D=1484&per_page=10&seasons%5B%5D=2025
+2026-05-14 13:07:43,403 - EV_Bot_Ingestion - ERROR - Error consultando stats del jugador 1556: 401 Client Error: Unauthorized for url: https://api.balldontlie.io/v1/stats?player_ids%5B%5D=1556&per_page=10&seasons%5B%5D=2025
+2026-05-14 13:07:44,598 - EV_Bot_Ingestion - ERROR - Error consultando stats del jugador 1557: 401 Client Error: Unauthorized for url: https://api.balldontlie.io/v1/stats?player_ids%5B%5D=1557&per_page=10&seasons%5B%5D=2025
+2026-05-14 13:07:45,808 - EV_Bot_Ingestion - ERROR - Error consultando stats del jugador 1640: 401 Client Error: Unauthorized for url: https://api.balldontlie.io/v1/stats?player_ids%5B%5D=1640&per_page=10&seasons%5B%5D=2025
+2026-05-14 13:07:47,095 - EV_Bot_Ingestion - ERROR - Error consultando stats del jugador 1663: 401 Client Error: Unauthorized for url: https://api.balldontlie.io/v1/stats?player_ids%5B%5D=1663&per_page=10&seasons%5B%5D=2025
+2026-05-14 13:07:48,292 - EV_Bot_Ingestion - ERROR - Error consultando stats del jugador 1716: 401 Client Error: Unauthorized for url: https://api.balldontlie.io/v1/stats?player_ids%5B%5D=1716&per_page=10&seasons%5B%5D=2025
+2026-05-14 13:07:49,682 - EV_Bot_Ingestion - ERROR - Error consultando stats del jugador 1793: 401 Client Error: Unauthorized for url: https://api.balldontlie.io/v1/stats?player_ids%5B%5D=1793&per_page=10&seasons%5B%5D=2025
+2026-05-14 13:07:50,920 - EV_Bot_Ingestion - ERROR - Error consultando stats del jugador 1796: 401 Client Error: Unauthorized for url: https://api.balldontlie.io/v1/stats?player_ids%5B%5D=1796&per_page=10&seasons%5B%5D=2025
+2026-05-14 13:07:52,194 - EV_Bot_Ingestion - ERROR - Error consultando stats del jugador 1826: 401 Client Error: Unauthorized for url: https://api.balldontlie.io/v1/stats?player_ids%5B%5D=1826&per_page=10&seasons%5B%5D=2025
+2026-05-14 13:07:53,417 - EV_Bot_Ingestion - ERROR - Error consultando stats del jugador 1828: 401 Client Error: Unauthorized for url: https://api.balldontlie.io/v1/stats?player_ids%5B%5D=1828&per_page=10&seasons%5B%5D=2025
+2026-05-14 13:07:54,587 - EV_Bot_Ingestion - ERROR - Error consultando stats del jugador 1868: 401 Client Error: Unauthorized for url: https://api.balldontlie.io/v1/stats?player_ids%5B%5D=1868&per_page=10&seasons%5B%5D=2025
+2026-05-14 13:07:55,807 - EV_Bot_Ingestion - ERROR - Error consultando stats del jugador 1872: 401 Client Error: Unauthorized for url: https://api.balldontlie.io/v1/stats?player_ids%5B%5D=1872&per_page=10&seasons%5B%5D=2025
+2026-05-14 13:07:57,102 - EV_Bot_Ingestion - ERROR - Error consultando stats del jugador 1899: 401 Client Error: Unauthorized for url: https://api.balldontlie.io/v1/stats?player_ids%5B%5D=1899&per_page=10&seasons%5B%5D=2025
+2026-05-14 13:07:58,293 - EV_Bot_Ingestion - ERROR - Error consultando stats del jugador 1902: 401 Client Error: Unauthorized for url: https://api.balldontlie.io/v1/stats?player_ids%5B%5D=1902&per_page=10&seasons%5B%5D=2025
+2026-05-14 13:07:59,509 - EV_Bot_Ingestion - ERROR - Error consultando stats del jugador 1903: 401 Client Error: Unauthorized for url: https://api.balldontlie.io/v1/stats?player_ids%5B%5D=1903&per_page=10&seasons%5B%5D=2025
+2026-05-14 13:08:00,706 - EV_Bot_Ingestion - ERROR - Error consultando stats del jugador 1913: 401 Client Error: Unauthorized for url: https://api.balldontlie.io/v1/stats?player_ids%5B%5D=1913&per_page=10&seasons%5B%5D=2025
+2026-05-14 13:08:02,015 - EV_Bot_Ingestion - ERROR - Error consultando stats del jugador 1958: 401 Client Error: Unauthorized for url: https://api.balldontlie.io/v1/stats?player_ids%5B%5D=1958&per_page=10&seasons%5B%5D=2025
+2026-05-14 13:08:03,279 - EV_Bot_Ingestion - ERROR - Error consultando stats del jugador 1966: 401 Client Error: Unauthorized for url: https://api.balldontlie.io/v1/stats?player_ids%5B%5D=1966&per_page=10&seasons%5B%5D=2025
+2026-05-14 13:08:04,552 - EV_Bot_Ingestion - ERROR - Error consultando stats del jugador 1974: 401 Client Error: Unauthorized for url: https://api.balldontlie.io/v1/stats?player_ids%5B%5D=1974&per_page=10&seasons%5B%5D=2025
+2026-05-14 13:08:05,840 - EV_Bot_Ingestion - ERROR - Error consultando stats del jugador 1980: 401 Client Error: Unauthorized for url: https://api.balldontlie.io/v1/stats?player_ids%5B%5D=1980&per_page=10&seasons%5B%5D=2025
+2026-05-14 13:08:07,133 - EV_Bot_Ingestion - ERROR - Error consultando stats del jugador 2022: 401 Client Error: Unauthorized for url: https://api.balldontlie.io/v1/stats?player_ids%5B%5D=2022&per_page=10&seasons%5B%5D=2025
+2026-05-14 13:08:08,361 - EV_Bot_Ingestion - ERROR - Error consultando stats del jugador 2062: 401 Client Error: Unauthorized for url: https://api.balldontlie.io/v1/stats?player_ids%5B%5D=2062&per_page=10&seasons%5B%5D=2025
+2026-05-14 13:08:09,582 - EV_Bot_Ingestion - ERROR - Error consultando stats del jugador 2071: 401 Client Error: Unauthorized for url: https://api.balldontlie.io/v1/stats?player_ids%5B%5D=2071&per_page=10&seasons%5B%5D=2025
+2026-05-14 13:08:10,804 - EV_Bot_Ingestion - ERROR - Error consultando stats del jugador 2092: 401 Client Error: Unauthorized for url: https://api.balldontlie.io/v1/stats?player_ids%5B%5D=2092&per_page=10&seasons%5B%5D=2025
+2026-05-14 13:08:12,018 - EV_Bot_Ingestion - ERROR - Error consultando stats del jugador 2098: 401 Client Error: Unauthorized for url: https://api.balldontlie.io/v1/stats?player_ids%5B%5D=2098&per_page=10&seasons%5B%5D=2025
+2026-05-14 13:08:13,307 - EV_Bot_Ingestion - ERROR - Error consultando stats del jugador 2129: 401 Client Error: Unauthorized for url: https://api.balldontlie.io/v1/stats?player_ids%5B%5D=2129&per_page=10&seasons%5B%5D=2025
+2026-05-14 13:08:14,511 - EV_Bot_Ingestion - ERROR - Error consultando stats del jugador 2155: 401 Client Error: Unauthorized for url: https://api.balldontlie.io/v1/stats?player_ids%5B%5D=2155&per_page=10&seasons%5B%5D=2025
+2026-05-14 13:08:15,721 - EV_Bot_Ingestion - ERROR - Error consultando stats del jugador 2172: 401 Client Error: Unauthorized for url: https://api.balldontlie.io/v1/stats?player_ids%5B%5D=2172&per_page=10&seasons%5B%5D=2025
+2026-05-14 13:08:17,310 - EV_Bot_Ingestion - ERROR - Error consultando stats del jugador 2193: 401 Client Error: Unauthorized for url: https://api.balldontlie.io/v1/stats?player_ids%5B%5D=2193&per_page=10&seasons%5B%5D=2025
+2026-05-14 13:08:18,498 - EV_Bot_Ingestion - ERROR - Error consultando stats del jugador 2213: 401 Client Error: Unauthorized for url: https://api.balldontlie.io/v1/stats?player_ids%5B%5D=2213&per_page=10&seasons%5B%5D=2025
+2026-05-14 13:08:19,699 - EV_Bot_Ingestion - ERROR - Error consultando stats del jugador 2243: 401 Client Error: Unauthorized for url: https://api.balldontlie.io/v1/stats?player_ids%5B%5D=2243&per_page=10&seasons%5B%5D=2025
+2026-05-14 13:08:20,879 - EV_Bot_Ingestion - ERROR - Error consultando stats del jugador 2246: 401 Client Error: Unauthorized for url: https://api.balldontlie.io/v1/stats?player_ids%5B%5D=2246&per_page=10&seasons%5B%5D=2025
+2026-05-14 13:08:22,104 - EV_Bot_Ingestion - ERROR - Error consultando stats del jugador 2293: 401 Client Error: Unauthorized for url: https://api.balldontlie.io/v1/stats?player_ids%5B%5D=2293&per_page=10&seasons%5B%5D=2025
+2026-05-14 13:08:23,400 - EV_Bot_Ingestion - ERROR - Error consultando stats del jugador 2295: 401 Client Error: Unauthorized for url: https://api.balldontlie.io/v1/stats?player_ids%5B%5D=2295&per_page=10&seasons%5B%5D=2025
+2026-05-14 13:08:24,601 - EV_Bot_Ingestion - ERROR - Error consultando stats del jugador 2297: 401 Client Error: Unauthorized for url: https://api.balldontlie.io/v1/stats?player_ids%5B%5D=2297&per_page=10&seasons%5B%5D=2025
+2026-05-14 13:08:25,810 - EV_Bot_Ingestion - ERROR - Error consultando stats del jugador 2306: 401 Client Error: Unauthorized for url: https://api.balldontlie.io/v1/stats?player_ids%5B%5D=2306&per_page=10&seasons%5B%5D=2025
+2026-05-14 13:08:27,004 - EV_Bot_Ingestion - ERROR - Error consultando stats del jugador 2329: 401 Client Error: Unauthorized for url: https://api.balldontlie.io/v1/stats?player_ids%5B%5D=2329&per_page=10&seasons%5B%5D=2025
+2026-05-14 13:08:28,199 - EV_Bot_Ingestion - ERROR - Error consultando stats del jugador 2348: 401 Client Error: Unauthorized for url: https://api.balldontlie.io/v1/stats?player_ids%5B%5D=2348&per_page=10&seasons%5B%5D=2025
+2026-05-14 13:08:29,389 - EV_Bot_Ingestion - ERROR - Error consultando stats del jugador 2349: 401 Client Error: Unauthorized for url: https://api.balldontlie.io/v1/stats?player_ids%5B%5D=2349&per_page=10&seasons%5B%5D=2025
+2026-05-14 13:08:30,611 - EV_Bot_Ingestion - ERROR - Error consultando stats del jugador 2352: 401 Client Error: Unauthorized for url: https://api.balldontlie.io/v1/stats?player_ids%5B%5D=2352&per_page=10&seasons%5B%5D=2025
+2026-05-14 13:08:32,242 - EV_Bot_Ingestion - ERROR - Error consultando stats del jugador 2356: 401 Client Error: Unauthorized for url: https://api.balldontlie.io/v1/stats?player_ids%5B%5D=2356&per_page=10&seasons%5B%5D=2025
+2026-05-14 13:08:33,436 - EV_Bot_Ingestion - ERROR - Error consultando stats del jugador 2406: 401 Client Error: Unauthorized for url: https://api.balldontlie.io/v1/stats?player_ids%5B%5D=2406&per_page=10&seasons%5B%5D=2025
+2026-05-14 13:08:34,624 - EV_Bot_Ingestion - ERROR - Error consultando stats del jugador 2451: 401 Client Error: Unauthorized for url: https://api.balldontlie.io/v1/stats?player_ids%5B%5D=2451&per_page=10&seasons%5B%5D=2025
+2026-05-14 13:08:35,907 - EV_Bot_Ingestion - ERROR - Error consultando stats del jugador 2490: 401 Client Error: Unauthorized for url: https://api.balldontlie.io/v1/stats?player_ids%5B%5D=2490&per_page=10&seasons%5B%5D=2025
+2026-05-14 13:08:37,113 - EV_Bot_Ingestion - ERROR - Error consultando stats del jugador 2525: 401 Client Error: Unauthorized for url: https://api.balldontlie.io/v1/stats?player_ids%5B%5D=2525&per_page=10&seasons%5B%5D=2025
+2026-05-14 13:08:38,304 - EV_Bot_Ingestion - ERROR - Error consultando stats del jugador 2526: 401 Client Error: Unauthorized for url: https://api.balldontlie.io/v1/stats?player_ids%5B%5D=2526&per_page=10&seasons%5B%5D=2025
+2026-05-14 13:08:38,305 - EV_Bot_Ingestion - WARNING - No se recolectaron estadísticas de jugadores. Terminando proceso.
+2026-05-14 13:11:26,696 - EV_Bot_Ingestion - INFO - === INICIANDO FASE 1: INGESTA DE DATOS ===
+2026-05-14 13:11:26,697 - EV_Bot_Ingestion - INFO - Consultando partidos para la fecha: 2026-05-14
+2026-05-14 13:11:27,286 - EV_Bot_Ingestion - INFO - Partidos programados para hoy en ligas objetivo: 0
+2026-05-14 13:11:27,286 - EV_Bot_Ingestion - WARNING - No se recolectaron estadísticas de jugadores. Inyectando MOCK DATA para probar Supabase.
+2026-05-14 13:11:27,286 - EV_Bot_Ingestion - INFO - Iniciando limpieza y normalización con Pandas...
+2026-05-14 13:11:27,291 - EV_Bot_Ingestion - INFO - Dataset final preparado: 2 registros procesados.
+2026-05-14 13:11:27,291 - EV_Bot_Ingestion - INFO - Realizando UPSERT en la tabla 'player_stats' de Supabase...
+2026-05-14 13:11:27,690 - httpx - INFO - HTTP Request: POST https://qbwgqtmdrmlkscvnuiif.supabase.co/rest/v1/player_stats?columns=%22reb%22%2C%22player_id%22%2C%22league%22%2C%22pts%22%2C%22min%22%2C%22ast%22%2C%22opponent%22%2C%22player_name%22%2C%22game_date%22 "HTTP/2 401 Unauthorized"
+2026-05-14 13:11:27,691 - EV_Bot_Ingestion - ERROR - Fallo crítico durante el UPSERT en Supabase: {'message': 'Invalid API key', 'hint': 'Double check your Supabase `anon` or `service_role` API key.'}
+2026-05-14 13:12:46,819 - EV_Bot_Ingestion - INFO - === INICIANDO FASE 1: INGESTA DE DATOS ===
+2026-05-14 13:12:46,819 - EV_Bot_Ingestion - INFO - Consultando partidos para la fecha: 2026-05-14
+2026-05-14 13:12:47,283 - EV_Bot_Ingestion - INFO - Partidos programados para hoy en ligas objetivo: 0
+2026-05-14 13:12:47,283 - EV_Bot_Ingestion - WARNING - No se recolectaron estadísticas de jugadores. Inyectando MOCK DATA para probar Supabase.
+2026-05-14 13:12:47,283 - EV_Bot_Ingestion - INFO - Iniciando limpieza y normalización con Pandas...
+2026-05-14 13:12:47,287 - EV_Bot_Ingestion - INFO - Dataset final preparado: 2 registros procesados.
+2026-05-14 13:12:47,287 - EV_Bot_Ingestion - INFO - Realizando UPSERT en la tabla 'player_stats' de Supabase...
+2026-05-14 13:12:47,727 - httpx - INFO - HTTP Request: POST https://qbwgqtmdrmlkscvnuiif.supabase.co/rest/v1/player_stats?columns=%22game_date%22%2C%22opponent%22%2C%22league%22%2C%22player_name%22%2C%22min%22%2C%22ast%22%2C%22pts%22%2C%22reb%22%2C%22player_id%22 "HTTP/2 401 Unauthorized"
+2026-05-14 13:12:47,728 - EV_Bot_Ingestion - ERROR - Fallo crítico durante el UPSERT en Supabase: {'message': 'Invalid API key', 'hint': 'Double check your Supabase `anon` or `service_role` API key.'}
+2026-05-14 13:13:51,185 - EV_Bot_Ingestion - INFO - === INICIANDO FASE 1: INGESTA DE DATOS ===
+2026-05-14 13:13:51,185 - EV_Bot_Ingestion - INFO - Consultando partidos para la fecha: 2026-05-14
+2026-05-14 13:13:51,925 - EV_Bot_Ingestion - INFO - Partidos programados para hoy en ligas objetivo: 0
+2026-05-14 13:13:51,925 - EV_Bot_Ingestion - WARNING - No se recolectaron estadísticas de jugadores. Inyectando MOCK DATA para probar Supabase.
+2026-05-14 13:13:51,925 - EV_Bot_Ingestion - INFO - Iniciando limpieza y normalización con Pandas...
+2026-05-14 13:13:51,929 - EV_Bot_Ingestion - INFO - Dataset final preparado: 2 registros procesados.
+2026-05-14 13:13:51,930 - EV_Bot_Ingestion - INFO - Realizando UPSERT en la tabla 'player_stats' de Supabase...
+2026-05-14 13:13:52,207 - httpx - INFO - HTTP Request: POST https://qbwgqtmdrmlkscvnuiif.supabase.co/rest/v1/player_stats?columns=%22player_name%22%2C%22min%22%2C%22pts%22%2C%22game_date%22%2C%22opponent%22%2C%22league%22%2C%22player_id%22%2C%22ast%22%2C%22reb%22 "HTTP/2 401 Unauthorized"
+2026-05-14 13:13:52,207 - EV_Bot_Ingestion - ERROR - Fallo crítico durante el UPSERT en Supabase: {'message': 'Invalid API key', 'hint': 'Double check your API key.'}
+2026-05-14 13:18:39,790 - EV_Bot_Ingestion - INFO - === INICIANDO FASE 1: INGESTA DE DATOS ===
+2026-05-14 13:18:39,790 - EV_Bot_Ingestion - INFO - Consultando partidos para la fecha: 2026-05-14
+2026-05-14 13:18:40,628 - EV_Bot_Ingestion - INFO - Partidos programados para hoy en ligas objetivo: 0
+2026-05-14 13:18:40,628 - EV_Bot_Ingestion - WARNING - No se recolectaron estadísticas de jugadores. Inyectando MOCK DATA para probar Supabase.
+2026-05-14 13:18:40,628 - EV_Bot_Ingestion - INFO - Iniciando limpieza y normalización con Pandas...
+2026-05-14 13:18:40,632 - EV_Bot_Ingestion - INFO - Dataset final preparado: 2 registros procesados.
+2026-05-14 13:18:40,632 - EV_Bot_Ingestion - INFO - Realizando UPSERT en la tabla 'player_stats' de Supabase...
+2026-05-14 13:18:41,347 - httpx - INFO - HTTP Request: POST https://qbwgqtmdrmlkscvnuiif.supabase.co/rest/v1/player_stats?columns=%22ast%22%2C%22reb%22%2C%22min%22%2C%22opponent%22%2C%22player_id%22%2C%22player_name%22%2C%22pts%22%2C%22game_date%22%2C%22league%22 "HTTP/2 400 Bad Request"
+2026-05-14 13:18:41,348 - EV_Bot_Ingestion - ERROR - Fallo crítico durante el UPSERT en Supabase: {'code': 'PGRST204', 'details': None, 'hint': None, 'message': "Could not find the 'league' column of 'player_stats' in the schema cache"}
+2026-05-14 13:19:09,543 - EV_Bot_Ingestion - INFO - === INICIANDO FASE 1: INGESTA DE DATOS ===
+2026-05-14 13:19:09,543 - EV_Bot_Ingestion - INFO - Consultando partidos para la fecha: 2026-05-14
+2026-05-14 13:19:09,988 - EV_Bot_Ingestion - INFO - Partidos programados para hoy en ligas objetivo: 0
+2026-05-14 13:19:09,988 - EV_Bot_Ingestion - WARNING - No se recolectaron estadísticas de jugadores. Inyectando MOCK DATA para probar Supabase.
+2026-05-14 13:19:09,988 - EV_Bot_Ingestion - INFO - Iniciando limpieza y normalización con Pandas...
+2026-05-14 13:19:09,992 - EV_Bot_Ingestion - INFO - Dataset final preparado: 2 registros procesados.
+2026-05-14 13:19:09,992 - EV_Bot_Ingestion - INFO - Realizando UPSERT en la tabla 'player_stats' de Supabase...
+2026-05-14 13:19:10,426 - httpx - INFO - HTTP Request: POST https://qbwgqtmdrmlkscvnuiif.supabase.co/rest/v1/player_stats?columns=%22pts%22%2C%22ast%22%2C%22game_date%22%2C%22min%22%2C%22player_name%22%2C%22player_id%22%2C%22reb%22%2C%22opponent%22 "HTTP/2 400 Bad Request"
+2026-05-14 13:19:10,426 - EV_Bot_Ingestion - ERROR - Fallo crítico durante el UPSERT en Supabase: {'code': 'PGRST204', 'details': None, 'hint': None, 'message': "Could not find the 'opponent' column of 'player_stats' in the schema cache"}
+2026-05-14 13:35:26,970 - EV_Bot_Ingestion - INFO - === INICIANDO FASE 1: INGESTA DE DATOS ===
+2026-05-14 13:35:26,970 - EV_Bot_Ingestion - INFO - Consultando partidos para la fecha: 2026-05-13
+2026-05-14 13:35:27,464 - EV_Bot_Ingestion - INFO - Partidos programados para 2026-05-13 en ligas objetivo: 1
+2026-05-14 13:35:27,464 - EV_Bot_Ingestion - INFO - Procesando partido 0042500205 de la liga NBA
+2026-05-14 13:35:28,839 - EV_Bot_Ingestion - INFO - Iniciando limpieza y normalización con Pandas...
+2026-05-14 13:35:28,844 - EV_Bot_Ingestion - INFO - Dataset final preparado: 19 registros procesados.
+2026-05-14 13:35:28,844 - EV_Bot_Ingestion - INFO - Realizando UPSERT en la tabla 'player_stats' de Supabase...
+2026-05-14 13:35:29,974 - httpx - INFO - HTTP Request: POST https://qbwgqtmdrmlkscvnuiif.supabase.co/rest/v1/player_stats?columns=%22ast%22%2C%22min%22%2C%22opponent%22%2C%22league%22%2C%22player_name%22%2C%22player_id%22%2C%22game_date%22%2C%22reb%22%2C%22pts%22 "HTTP/2 201 Created"
+2026-05-14 13:35:29,977 - EV_Bot_Ingestion - INFO - UPSERT exitoso. Registros afectados/verificados: 19

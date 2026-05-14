@@ -1,0 +1,43 @@
+name: 🏀 NBA Bot - Apuestas +EV Diarias
+
+on:
+  # ── Ejecución automática todos los días a las 6:00 AM UTC = 1:00 AM Colombia ──
+  schedule:
+    - cron: '0 6 * * *'
+
+  # ── También puedes ejecutarlo manualmente desde GitHub si necesitas ──
+  workflow_dispatch:
+
+jobs:
+  run-ev-bot:
+    name: Ejecutar Pipeline NBA +EV
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1. Descargar el código del repositorio
+      - name: 📥 Checkout del repositorio
+        uses: actions/checkout@v4
+
+      # 2. Instalar Python 3.11
+      - name: 🐍 Configurar Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+
+      # 3. Instalar dependencias
+      - name: 📦 Instalar dependencias
+        run: pip install -r requirements.txt
+
+      # 4. Crear el archivo .env con los secretos de GitHub
+      - name: 🔐 Crear archivo .env con secretos
+        run: |
+          echo "SUPABASE_URL=${{ secrets.SUPABASE_URL }}" >> .env
+          echo "SUPABASE_KEY=${{ secrets.SUPABASE_KEY }}" >> .env
+          echo "ODDS_API_KEY=${{ secrets.ODDS_API_KEY }}" >> .env
+          echo "TELEGRAM_BOT_TOKEN=${{ secrets.TELEGRAM_BOT_TOKEN }}" >> .env
+          echo "TELEGRAM_CHAT_ID=${{ secrets.TELEGRAM_CHAT_ID }}" >> .env
+
+      # 5. Ejecutar el pipeline completo
+      - name: 🤖 Ejecutar Bot (odds → analyzer → Telegram)
+        run: python run_bot.py
