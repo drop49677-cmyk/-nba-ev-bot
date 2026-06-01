@@ -15,3 +15,9 @@ build/
 .vscode/
 .idea/
 *.swp
+
+# Logs and outputs
+*.log
+final_bets.txt
+analyzer_output.txt
+scratch/

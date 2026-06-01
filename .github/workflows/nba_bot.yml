@@ -1,20 +1,22 @@
-name: 🏀 NBA Bot - Apuestas +EV Diarias
+name: 🏀 NBA Bot - Apuestas +EV ELITE
 
 on:
   schedule:
-    - cron: '0 6 * * *'   # 6:00 AM UTC = 1:00 AM Colombia
-  workflow_dispatch:       # Ejecución manual desde GitHub
+    - cron: '0 6 * * *'    # 1:00 AM Colombia — análisis nocturno principal
+    - cron: '0 18 * * *'   # 1:00 PM Colombia — re-check pre-game
+  workflow_dispatch:
 
 jobs:
   run-ev-bot:
-    name: Ejecutar Pipeline NBA +EV
+    name: Pipeline NBA +EV Elite
     runs-on: ubuntu-latest
+    timeout-minutes: 25
 
     steps:
-      - name: 📥 Checkout del repositorio
+      - name: 📥 Checkout
         uses: actions/checkout@v4
 
-      - name: 🐍 Configurar Python 3.11
+      - name: 🐍 Python 3.11
         uses: actions/setup-python@v5
         with:
           python-version: '3.11'
@@ -23,20 +25,34 @@ jobs:
       - name: 📦 Instalar dependencias
         run: pip install -r requirements.txt
 
-      - name: 🔐 Crear archivo .env con secretos
+      - name: 🔐 Crear .env
         run: |
           echo "SUPABASE_URL=${{ secrets.SUPABASE_URL }}" >> .env
           echo "SUPABASE_KEY=${{ secrets.SUPABASE_KEY }}" >> .env
           echo "ODDS_API_KEY=${{ secrets.ODDS_API_KEY }}" >> .env
+          echo "ODDS_API_KEY_1=${{ secrets.ODDS_API_KEY_1 }}" >> .env
+          echo "ODDS_REGIONS=us" >> .env
+          echo "ODDS_SPORTS=basketball_nba" >> .env
+          echo "ODDS_FETCH_NBA_PROPS=1" >> .env
+          echo "LOCK_MODE=1" >> .env
+          echo "ALLOWED_BOOKIES=unibet,betrivers,bet365,williamhill,betsson,betfair,888sport,bovada" >> .env
           echo "TELEGRAM_BOT_TOKEN=${{ secrets.TELEGRAM_BOT_TOKEN }}" >> .env
           echo "TELEGRAM_CHAT_ID=${{ secrets.TELEGRAM_CHAT_ID }}" >> .env
 
-      - name: 📊 Paso 1 - Descargar cuotas de casinos (odds.py)
+      - name: 📊 Paso 1 — Cuotas + Line Movement (odds.py)
         run: python odds.py
 
-      - name: 🔄 Paso 2 - Actualizar stats desde Supabase (update_stats.py)
+      - name: 🔄 Paso 2 — Actualizar stats (update_stats.py)
         run: python update_stats.py
-        continue-on-error: true   # Si falla (IP bloqueada), el análisis usa datos previos
+        continue-on-error: true
 
-      - name: 🤖 Paso 3 - Analizar y enviar apuestas a Telegram (analyzer.py)
+      - name: 🤖 Paso 3 — Análisis Elite + Telegram (analyzer.py)
         run: python analyzer.py
+
+      - name: 📁 Guardar logs
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: bot-logs-${{ github.run_number }}
+          path: bot_ingestion.log
+          retention-days: 7

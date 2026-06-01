@@ -1,0 +1,272 @@
+[
+  {
+    "team_name": "Atlanta Hawks",
+    "pts_allowed": 116.0,
+    "reb_allowed": 45.2,
+    "ast_allowed": 26.6,
+    "fg3m_allowed": 12.9,
+    "blk_allowed": 4.9,
+    "stl_allowed": 8.5
+  },
+  {
+    "team_name": "Boston Celtics",
+    "pts_allowed": 107.2,
+    "reb_allowed": 41.2,
+    "ast_allowed": 24.7,
+    "fg3m_allowed": 14.0,
+    "blk_allowed": 4.1,
+    "stl_allowed": 6.2
+  },
+  {
+    "team_name": "Brooklyn Nets",
+    "pts_allowed": 115.9,
+    "reb_allowed": 43.6,
+    "ast_allowed": 27.5,
+    "fg3m_allowed": 12.5,
+    "blk_allowed": 5.3,
+    "stl_allowed": 9.1
+  },
+  {
+    "team_name": "Charlotte Hornets",
+    "pts_allowed": 111.2,
+    "reb_allowed": 39.3,
+    "ast_allowed": 25.9,
+    "fg3m_allowed": 12.8,
+    "blk_allowed": 4.4,
+    "stl_allowed": 8.2
+  },
+  {
+    "team_name": "Chicago Bulls",
+    "pts_allowed": 121.5,
+    "reb_allowed": 45.7,
+    "ast_allowed": 28.8,
+    "fg3m_allowed": 14.1,
+    "blk_allowed": 5.6,
+    "stl_allowed": 9.1
+  },
+  {
+    "team_name": "Cleveland Cavaliers",
+    "pts_allowed": 115.4,
+    "reb_allowed": 43.2,
+    "ast_allowed": 26.9,
+    "fg3m_allowed": 14.2,
+    "blk_allowed": 4.3,
+    "stl_allowed": 8.6
+  },
+  {
+    "team_name": "Dallas Mavericks",
+    "pts_allowed": 119.6,
+    "reb_allowed": 46.8,
+    "ast_allowed": 28.4,
+    "fg3m_allowed": 12.8,
+    "blk_allowed": 5.3,
+    "stl_allowed": 8.8
+  },
+  {
+    "team_name": "Denver Nuggets",
+    "pts_allowed": 116.9,
+    "reb_allowed": 42.8,
+    "ast_allowed": 27.5,
+    "fg3m_allowed": 13.6,
+    "blk_allowed": 4.6,
+    "stl_allowed": 7.8
+  },
+  {
+    "team_name": "Detroit Pistons",
+    "pts_allowed": 109.6,
+    "reb_allowed": 40.5,
+    "ast_allowed": 23.5,
+    "fg3m_allowed": 12.7,
+    "blk_allowed": 5.8,
+    "stl_allowed": 8.9
+  },
+  {
+    "team_name": "Golden State Warriors",
+    "pts_allowed": 115.2,
+    "reb_allowed": 44.2,
+    "ast_allowed": 27.1,
+    "fg3m_allowed": 12.9,
+    "blk_allowed": 4.2,
+    "stl_allowed": 8.8
+  },
+  {
+    "team_name": "Houston Rockets",
+    "pts_allowed": 110.0,
+    "reb_allowed": 39.5,
+    "ast_allowed": 24.5,
+    "fg3m_allowed": 12.4,
+    "blk_allowed": 4.7,
+    "stl_allowed": 9.0
+  },
+  {
+    "team_name": "Indiana Pacers",
+    "pts_allowed": 120.4,
+    "reb_allowed": 46.7,
+    "ast_allowed": 26.4,
+    "fg3m_allowed": 12.1,
+    "blk_allowed": 4.8,
+    "stl_allowed": 8.1
+  },
+  {
+    "team_name": "LA Clippers",
+    "pts_allowed": 112.6,
+    "reb_allowed": 42.4,
+    "ast_allowed": 26.1,
+    "fg3m_allowed": 13.3,
+    "blk_allowed": 4.6,
+    "stl_allowed": 8.5
+  },
+  {
+    "team_name": "Los Angeles Lakers",
+    "pts_allowed": 114.6,
+    "reb_allowed": 41.0,
+    "ast_allowed": 27.4,
+    "fg3m_allowed": 12.8,
+    "blk_allowed": 3.5,
+    "stl_allowed": 8.9
+  },
+  {
+    "team_name": "Memphis Grizzlies",
+    "pts_allowed": 120.7,
+    "reb_allowed": 46.8,
+    "ast_allowed": 28.2,
+    "fg3m_allowed": 14.0,
+    "blk_allowed": 5.3,
+    "stl_allowed": 8.8
+  },
+  {
+    "team_name": "Miami Heat",
+    "pts_allowed": 118.5,
+    "reb_allowed": 46.4,
+    "ast_allowed": 27.5,
+    "fg3m_allowed": 14.0,
+    "blk_allowed": 4.9,
+    "stl_allowed": 7.9
+  },
+  {
+    "team_name": "Milwaukee Bucks",
+    "pts_allowed": 116.8,
+    "reb_allowed": 44.5,
+    "ast_allowed": 27.9,
+    "fg3m_allowed": 14.8,
+    "blk_allowed": 4.1,
+    "stl_allowed": 8.7
+  },
+  {
+    "team_name": "Minnesota Timberwolves",
+    "pts_allowed": 114.6,
+    "reb_allowed": 43.7,
+    "ast_allowed": 26.0,
+    "fg3m_allowed": 12.1,
+    "blk_allowed": 4.1,
+    "stl_allowed": 8.3
+  },
+  {
+    "team_name": "New Orleans Pelicans",
+    "pts_allowed": 120.0,
+    "reb_allowed": 45.8,
+    "ast_allowed": 28.1,
+    "fg3m_allowed": 14.2,
+    "blk_allowed": 5.8,
+    "stl_allowed": 8.0
+  },
+  {
+    "team_name": "New York Knicks",
+    "pts_allowed": 110.1,
+    "reb_allowed": 40.5,
+    "ast_allowed": 25.0,
+    "fg3m_allowed": 13.9,
+    "blk_allowed": 4.3,
+    "stl_allowed": 7.3
+  },
+  {
+    "team_name": "Oklahoma City Thunder",
+    "pts_allowed": 107.9,
+    "reb_allowed": 45.2,
+    "ast_allowed": 25.0,
+    "fg3m_allowed": 14.3,
+    "blk_allowed": 4.4,
+    "stl_allowed": 7.6
+  },
+  {
+    "team_name": "Orlando Magic",
+    "pts_allowed": 115.1,
+    "reb_allowed": 43.3,
+    "ast_allowed": 25.3,
+    "fg3m_allowed": 12.1,
+    "blk_allowed": 5.4,
+    "stl_allowed": 8.2
+  },
+  {
+    "team_name": "Philadelphia 76ers",
+    "pts_allowed": 116.1,
+    "reb_allowed": 45.3,
+    "ast_allowed": 27.6,
+    "fg3m_allowed": 13.4,
+    "blk_allowed": 5.1,
+    "stl_allowed": 7.3
+  },
+  {
+    "team_name": "Phoenix Suns",
+    "pts_allowed": 111.1,
+    "reb_allowed": 43.7,
+    "ast_allowed": 25.1,
+    "fg3m_allowed": 12.2,
+    "blk_allowed": 4.5,
+    "stl_allowed": 7.9
+  },
+  {
+    "team_name": "Portland Trail Blazers",
+    "pts_allowed": 115.8,
+    "reb_allowed": 43.0,
+    "ast_allowed": 26.4,
+    "fg3m_allowed": 12.5,
+    "blk_allowed": 5.7,
+    "stl_allowed": 10.8
+  },
+  {
+    "team_name": "Sacramento Kings",
+    "pts_allowed": 121.0,
+    "reb_allowed": 43.9,
+    "ast_allowed": 28.0,
+    "fg3m_allowed": 13.8,
+    "blk_allowed": 4.7,
+    "stl_allowed": 8.7
+  },
+  {
+    "team_name": "San Antonio Spurs",
+    "pts_allowed": 111.5,
+    "reb_allowed": 42.6,
+    "ast_allowed": 26.2,
+    "fg3m_allowed": 13.0,
+    "blk_allowed": 4.6,
+    "stl_allowed": 7.7
+  },
+  {
+    "team_name": "Toronto Raptors",
+    "pts_allowed": 111.8,
+    "reb_allowed": 42.9,
+    "ast_allowed": 24.5,
+    "fg3m_allowed": 12.5,
+    "blk_allowed": 5.0,
+    "stl_allowed": 7.8
+  },
+  {
+    "team_name": "Utah Jazz",
+    "pts_allowed": 126.0,
+    "reb_allowed": 45.7,
+    "ast_allowed": 30.7,
+    "fg3m_allowed": 15.3,
+    "blk_allowed": 5.8,
+    "stl_allowed": 9.3
+  },
+  {
+    "team_name": "Washington Wizards",
+    "pts_allowed": 124.9,
+    "reb_allowed": 47.8,
+    "ast_allowed": 29.4,
+    "fg3m_allowed": 13.7,
+    "blk_allowed": 5.4,
+    "stl_allowed": 9.7
+  }
+]

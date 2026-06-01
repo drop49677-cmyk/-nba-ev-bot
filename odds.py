@@ -1,196 +1,409 @@
-import os
-import requests
-import pandas as pd
-from datetime import datetime
 import logging
-from dotenv import load_dotenv
-from supabase import create_client, Client
+import os
+import sys
+import time
+from datetime import datetime, timezone
 
-# Configuración básica de logging
-logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+import numpy as np
+import pandas as pd
+import requests
+from dotenv import load_dotenv
+from supabase import create_client
+
+
+
+try:
+    sys.stdout.reconfigure(encoding="utf-8", errors="replace")
+except Exception:
+    pass
+
+
+logging.basicConfig(
+    level=logging.INFO,
+    format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
+)
 logger = logging.getLogger("EV_Bot_Odds")
 
+
+BASIC_MARKETS = "h2h,spreads,totals"
+PLAYER_PROP_MARKETS = [
+    "player_points",
+    "player_rebounds",
+    "player_assists",
+    "player_threes",
+    "player_blocks",
+    "player_steals",
+    "player_turnovers",
+    "player_points_rebounds_assists",
+]
+
+
 class OddsAPIClient:
-    """
-    Cliente para extraer cuotas de apuestas usando The Odds API.
-    Mercados objetivo: Puntos, Rebotes, Asistencias de jugadores.
-    """
     def __init__(self):
         load_dotenv()
-        self.api_key = os.getenv("ODDS_API_KEY")
-        if not self.api_key:
-            logger.warning("No se encontró ODDS_API_KEY en .env. Consigue una en the-odds-api.com")
-            
+        self.api_keys = []
+        # Cargar clave primaria
+        prim = os.getenv("ODDS_API_KEY")
+        if prim:
+            self.api_keys.append(prim)
+        # Cargar claves de respaldo (ODDS_API_KEY_1 hasta 9)
+        for i in range(1, 10):
+            k = os.getenv(f"ODDS_API_KEY_{i}")
+            if k:
+                self.api_keys.append(k)
+        
+        # Eliminar duplicados manteniendo orden
+        seen = set()
+        self.api_keys = [x for x in self.api_keys if not (x in seen or seen.add(x))]
+        self.current_key_idx = 0
+
         self.base_url = "https://api.the-odds-api.com/v4/sports"
-        self.sport = "basketball_nba"
-        
-        # Mercados: Player Props + Ganador del Partido (h2h)
-        self.markets = "player_points,player_rebounds,player_assists,h2h"
-        # Regiones (us, uk, eu, au) - Depende de las casas de apuestas que uses
-        self.regions = "us,eu" 
-        
-    def get_player_props(self):
-        """
-        Descarga las cuotas actuales para los partidos próximos de la NBA (Jugadores y Equipos).
-        """
-        if not self.api_key:
-            return []
-            
-        # 1. Obtener los eventos (partidos)
-        events_url = f"{self.base_url}/{self.sport}/events"
+        self.regions = os.getenv("ODDS_REGIONS", "us,eu")
+        self.odds_format = "decimal"
+        default_sports = (
+            "soccer_epl,"
+            "soccer_spain_la_liga,"
+            "soccer_italy_serie_a,"
+            "soccer_germany_bundesliga,"
+            "soccer_france_ligue_one,"
+            "soccer_usa_mls,"
+            "basketball_nba"
+        )
+        sports = os.getenv("ODDS_SPORTS", default_sports)
+        self.sports = [sport.strip() for sport in sports.split(",") if sport.strip()]
+        self.fetch_nba_props = os.getenv("ODDS_FETCH_NBA_PROPS", "1").lower() not in {"0", "false", "no"}
+        self.out_of_credits = False
+
+    @property
+    def api_key(self) -> str | None:
+        if not self.api_keys or self.current_key_idx >= len(self.api_keys):
+            return None
+        return self.api_keys[self.current_key_idx]
+
+    def rotate_key(self) -> bool:
+        self.current_key_idx += 1
+        if self.current_key_idx >= len(self.api_keys):
+            logger.error("Se agotaron todas las API keys de The Odds API configuradas.")
+            self.out_of_credits = True
+            return False
+        logger.info(
+            "Rotando a la siguiente API Key (clave %s de %s)...", 
+            self.current_key_idx + 1, len(self.api_keys)
+        )
+        return True
+
+    @staticmethod
+    def _response_detail(exc: Exception) -> str:
+        response = getattr(exc, "response", None)
+        if response is None:
+            return str(exc)
         try:
-            logger.info("Obteniendo eventos próximos de la NBA...")
-            events_res = requests.get(events_url, params={"apiKey": self.api_key})
-            events_res.raise_for_status()
-            events = events_res.json()
-        except Exception as e:
-            logger.error(f"Error obteniendo eventos: {e}")
+            body = response.text[:700]
+        except Exception:
+            body = ""
+        remaining = response.headers.get("x-requests-remaining")
+        used = response.headers.get("x-requests-used")
+        quota = f" | used={used} remaining={remaining}" if used or remaining else ""
+        return f"{response.status_code} {response.reason}: {body}{quota}"
+
+    @staticmethod
+    def _is_out_of_credits(exc: Exception) -> bool:
+        response = getattr(exc, "response", None)
+        if response is None:
+            return False
+        try:
+            return "OUT_OF_USAGE_CREDITS" in response.text
+        except Exception:
+            return False
+
+    @staticmethod
+    def _event_time(raw_time: str) -> tuple[str, str] | None:
+        if not raw_time or "T" not in raw_time:
+            return None
+        try:
+            dt = datetime.strptime(raw_time, "%Y-%m-%dT%H:%M:%SZ").replace(tzinfo=timezone.utc)
+        except ValueError:
+            return None
+        if dt < datetime.now(timezone.utc):
+            return None
+        return dt.strftime("%Y-%m-%d"), dt.strftime("%H:%M UTC")
+
+    @staticmethod
+    def _matchup(data: dict, sport: str) -> str:
+        icon = "NBA" if sport.startswith("basketball") else "SOCCER"
+        return f"{icon} {data.get('home_team')} vs {data.get('away_team')}"
+
+    def _get(self, url: str, params: dict, timeout: int = 20):
+        while True:
+            current_key = self.api_key
+            if not current_key:
+                raise ValueError("No API Key disponible en las configuraciones de .env.")
+            params["apiKey"] = current_key
+            try:
+                response = requests.get(url, params=params, timeout=timeout)
+                response.raise_for_status()
+                return response
+            except requests.exceptions.HTTPError as exc:
+                if exc.response is not None:
+                    # 401 Unauthorized, 429 Too Many Requests, o error de créditos
+                    if exc.response.status_code in {401, 429} or "OUT_OF_USAGE_CREDITS" in exc.response.text:
+                        logger.warning(f"Error con la clave actual: {exc.response.status_code} — {exc.response.text[:200]}")
+                        if self.rotate_key():
+                            time.sleep(1.0)
+                            continue
+                raise exc
+
+    def get_player_props(self) -> list[dict]:
+        if not self.api_key:
+            logger.error("No hay ninguna ODDS_API_KEY configurada en el archivo .env.")
             return []
-            
-        all_odds = []
-        
-        # 2. Por cada evento, pedir las cuotas (Player Props y H2H)
-        for event in events:
-            event_id = event["id"]
-            commence_time_raw = event["commence_time"] # ej: 2026-05-15T23:10:00Z
-            game_date = commence_time_raw.split("T")[0]
-            
-            # Formatear la hora legible
-            try:
-                dt_obj = datetime.strptime(commence_time_raw, "%Y-%m-%dT%H:%M:%SZ")
-                game_time = dt_obj.strftime("%H:%M UTC")
-            except:
-                game_time = commence_time_raw
-                
-            matchup = f"{event['home_team']} vs {event['away_team']}"
-            
-            logger.info(f"Descargando cuotas para: {matchup}")
-            
-            odds_url = f"{self.base_url}/{self.sport}/events/{event_id}/odds"
-            params = {
-                "apiKey": self.api_key,
-                "regions": self.regions,
-                "markets": self.markets,
-                "oddsFormat": "decimal"
-            }
-            
-            try:
-                odds_res = requests.get(odds_url, params=params)
-                odds_res.raise_for_status()
-                data = odds_res.json()
-                
-                # Procesar la respuesta
-                bookmakers = data.get("bookmakers", [])
-                for bookie in bookmakers:
-                    bookie_name = bookie["key"]
-                    
-                    for market in bookie.get("markets", []):
-                        market_name = market["key"] # ej: player_points o h2h
-                        
-                        if market_name == "h2h":
-                            # Mercado de Equipos (Ganador)
-                            for outcome in market.get("outcomes", []):
-                                team_name = outcome.get("name")
-                                price = outcome.get("price")
-                                all_odds.append({
-                                    "player_name": team_name,
-                                    "market": "h2h",
-                                    "line": 0,
-                                    "over_odds": price,
-                                    "under_odds": 0,
-                                    "bookmaker": bookie_name,
-                                    "game_date": game_date,
-                                    "matchup": matchup,
-                                    "game_time": game_time
-                                })
-                        elif market_name in ["player_points", "player_rebounds", "player_assists"]:
-                            # Mercados de Jugadores
-                            player_lines = {}
-                            
-                            for outcome in market.get("outcomes", []):
-                                player = outcome.get("description", "Unknown")
-                                tipo = outcome.get("name") # "Over" o "Under"
-                                price = outcome.get("price")
-                                point = outcome.get("point") # La línea (ej: 24.5)
-                                
-                                # Evitar líneas nulas por fallos de la API
-                                if point is None:
-                                    continue
-                                    
-                                if player not in player_lines:
-                                    player_lines[player] = {"line": point, "over_odds": None, "under_odds": None}
-                                    
-                                if tipo == "Over":
-                                    player_lines[player]["over_odds"] = price
-                                elif tipo == "Under":
-                                    player_lines[player]["under_odds"] = price
-                                    
-                            # Agregar a la lista final
-                            for player, lines in player_lines.items():
-                                all_odds.append({
-                                    "player_name": player,
-                                    "market": market_name,
-                                    "line": lines["line"],
-                                    "over_odds": lines["over_odds"],
-                                    "under_odds": lines["under_odds"],
-                                    "bookmaker": bookie_name,
-                                    "game_date": game_date,
-                                    "matchup": matchup,
-                                    "game_time": game_time
-                                })
-                            
-            except Exception as e:
-                logger.error(f"Error extrayendo cuotas del evento {event_id}: {e}")
-                
-        logger.info(f"Total de líneas (cuotas) extraídas: {len(all_odds)}")
+
+
+        all_odds: list[dict] = []
+        for sport in self.sports:
+            if self.out_of_credits:
+                logger.error("Sin creditos de The Odds API. Deteniendo descarga para no gastar llamadas.")
+                break
+            logger.info("Escaneando deporte: %s", sport)
+            before = len(all_odds)
+
+            self._download_basic_markets(sport, all_odds)
+            if self.out_of_credits:
+                logger.error("Sin creditos tras mercados basicos. Saltando llamadas restantes.")
+                break
+
+            # Player props are mostly useful for NBA in this bot because update_stats.py
+            # pulls NBA player logs. Keep it focused to save API credits.
+            if sport == "basketball_nba" and self.fetch_nba_props:
+                self._download_nba_props(sport, all_odds)
+                if self.out_of_credits:
+                    logger.error("Sin creditos tras props NBA. Saltando llamadas restantes.")
+                    break
+
+            logger.info("  -> %s cuotas nuevas para %s.", len(all_odds) - before, sport)
+
+        logger.info("Total cuotas parseadas antes de guardar: %s", len(all_odds))
         return all_odds
 
-    def save_to_supabase(self, odds_data):
-        """
-        Sube los datos limpios a la tabla player_odds en Supabase
-        """
-        if not odds_data:
+    def _download_basic_markets(self, sport: str, all_odds: list[dict]):
+        try:
+            response = self._get(
+                f"{self.base_url}/{sport}/odds",
+                params={
+                    "apiKey": self.api_key,
+                    "regions": self.regions,
+                    "markets": BASIC_MARKETS,
+                    "oddsFormat": self.odds_format,
+                },
+                timeout=25,
+            )
+            events = response.json()
+            logger.info("  Mercados basicos: %s eventos.", len(events))
+        except Exception as exc:
+            logger.error("  Error mercados basicos %s: %s", sport, self._response_detail(exc))
+            if self._is_out_of_credits(exc):
+                self.out_of_credits = True
             return
-            
+
+        for event in events:
+            parsed_time = self._event_time(event.get("commence_time", ""))
+            if not parsed_time:
+                continue
+            game_date, game_time = parsed_time
+            matchup = self._matchup(event, sport)
+            self._parse_bookmakers(event.get("bookmakers", []), matchup, game_date, game_time, all_odds)
+
+    def _download_nba_props(self, sport: str, all_odds: list[dict]):
+        try:
+            response = self._get(
+                f"{self.base_url}/{sport}/events",
+                params={"apiKey": self.api_key},
+                timeout=20,
+            )
+            events = response.json()
+            logger.info("  Eventos NBA para props: %s.", len(events))
+        except Exception as exc:
+            logger.error("  Error eventos %s: %s", sport, self._response_detail(exc))
+            if self._is_out_of_credits(exc):
+                self.out_of_credits = True
+            return
+
+        for event in events:
+            parsed_time = self._event_time(event.get("commence_time", ""))
+            if not parsed_time:
+                continue
+            game_date, game_time = parsed_time
+            matchup = self._matchup(event, sport)
+            event_id = event.get("id")
+            if not event_id:
+                continue
+
+            for market in PLAYER_PROP_MARKETS:
+                try:
+                    response = self._get(
+                        f"{self.base_url}/{sport}/events/{event_id}/odds",
+                        params={
+                            "apiKey": self.api_key,
+                            "regions": self.regions,
+                            "markets": market,
+                            "oddsFormat": self.odds_format,
+                        },
+                        timeout=20,
+                    )
+                    data = response.json()
+                except Exception as exc:
+                    logger.warning("    Sin mercado %s para %s: %s", market, matchup, self._response_detail(exc))
+                    if self._is_out_of_credits(exc):
+                        self.out_of_credits = True
+                        return
+                    continue
+
+                before = len(all_odds)
+                self._parse_bookmakers(data.get("bookmakers", []), matchup, game_date, game_time, all_odds)
+                added = len(all_odds) - before
+                if added:
+                    logger.info("    %s: +%s lineas en %s.", matchup, added, market)
+
+    def _parse_bookmakers(self, bookmakers, matchup, game_date, game_time, all_odds):
+        for bookie in bookmakers:
+            bookie_name = bookie.get("key")
+            if not bookie_name:
+                continue
+            for market in bookie.get("markets", []):
+                market_name = market.get("key")
+                if market_name == "h2h":
+                    self._parse_h2h(market, bookie_name, matchup, game_date, game_time, all_odds)
+                elif market_name in {"spreads", "totals"}:
+                    self._parse_game_line(market, bookie_name, matchup, game_date, game_time, all_odds)
+                elif market_name in PLAYER_PROP_MARKETS:
+                    self._parse_player_prop(market, bookie_name, matchup, game_date, game_time, all_odds)
+
+    @staticmethod
+    def _parse_h2h(market, bookie_name, matchup, game_date, game_time, all_odds):
+        for outcome in market.get("outcomes", []):
+            name = outcome.get("name")
+            price = outcome.get("price")
+            if not name or not price:
+                continue
+            all_odds.append(
+                {
+                    "player_name": name,
+                    "market": "h2h",
+                    "line": 0,
+                    "over_odds": price,
+                    "under_odds": 0,
+                    "bookmaker": bookie_name,
+                    "game_date": game_date,
+                    "matchup": matchup,
+                    "game_time": game_time,
+                }
+            )
+
+    @staticmethod
+    def _parse_game_line(market, bookie_name, matchup, game_date, game_time, all_odds):
+        market_name = market.get("key")
+        lines = {}
+        for outcome in market.get("outcomes", []):
+            name = outcome.get("name")
+            point = outcome.get("point")
+            price = outcome.get("price")
+            if not name or point is None or not price:
+                continue
+
+            if market_name == "totals":
+                key = ("Total Match Points", point)
+                side = "over" if name.lower() == "over" else "under"
+            else:
+                key = (name, point)
+                side = "over"
+
+            lines.setdefault(key, {"over": None, "under": None})
+            lines[key][side] = price
+
+        for (name, point), prices in lines.items():
+            if not prices["over"]:
+                continue
+            all_odds.append(
+                {
+                    "player_name": name,
+                    "market": market_name,
+                    "line": point,
+                    "over_odds": prices["over"],
+                    "under_odds": prices.get("under") or prices["over"],
+                    "bookmaker": bookie_name,
+                    "game_date": game_date,
+                    "matchup": matchup,
+                    "game_time": game_time,
+                }
+            )
+
+    @staticmethod
+    def _parse_player_prop(market, bookie_name, matchup, game_date, game_time, all_odds):
+        market_name = market.get("key")
+        lines = {}
+        for outcome in market.get("outcomes", []):
+            name = outcome.get("description")
+            point = outcome.get("point")
+            price = outcome.get("price")
+            side = (outcome.get("name") or "").lower()
+            if not name or point is None or not price or side not in {"over", "under"}:
+                continue
+
+            key = (name, point)
+            lines.setdefault(key, {"over": None, "under": None})
+            lines[key][side] = price
+
+        for (name, point), prices in lines.items():
+            if not prices["over"] or not prices["under"]:
+                continue
+            all_odds.append(
+                {
+                    "player_name": name,
+                    "market": market_name,
+                    "line": point,
+                    "over_odds": prices["over"],
+                    "under_odds": prices["under"],
+                    "bookmaker": bookie_name,
+                    "game_date": game_date,
+                    "matchup": matchup,
+                    "game_time": game_time,
+                }
+            )
+
+    def save_to_supabase(self, odds_data: list[dict]):
+        if not odds_data:
+            logger.error(
+                "No se descargaron cuotas. player_odds quedo vacia; revisa ODDS_API_KEY, "
+                "creditos de The Odds API o deportes activos."
+            )
+            return
+
         supabase_url = os.getenv("SUPABASE_URL")
         supabase_key = os.getenv("SUPABASE_KEY")
-        
         if not supabase_url or not supabase_key:
-            logger.warning("Credenciales de Supabase no encontradas.")
+            logger.error("Faltan SUPABASE_URL o SUPABASE_KEY en .env. No se puede guardar.")
             return
-            
+
         try:
-            supabase: Client = create_client(supabase_url, supabase_key)
-            logger.info("Realizando UPSERT de cuotas en Supabase (tabla 'player_odds')...")
-            
-            # Usar Pandas para limpiar duplicados si los hubiera
+            supabase = create_client(supabase_url, supabase_key)
             df = pd.DataFrame(odds_data)
-            
-            # Eliminamos duplicados exactos en Python antes de enviar (por seguridad)
-            df = df.drop_duplicates(subset=["player_name", "market", "bookmaker", "game_date"], keep="last")
-            # Convertir NaN a None para que Supabase (JSON) lo acepte como null
-            import numpy as np
+            df = df.dropna(subset=["player_name", "market", "bookmaker", "game_date", "matchup", "line"])
+            df = df.drop_duplicates(
+                subset=["player_name", "market", "bookmaker", "game_date", "matchup", "line"],
+                keep="last",
+            )
             df = df.replace({np.nan: None})
             records = df.to_dict(orient="records")
-            
-            # Usamos upsert con on_conflict para que, si el bot corre 2 veces el mismo día, 
-            # simplemente actualice las cuotas en lugar de fallar por duplicados.
-            response = supabase.table("player_odds").upsert(
-                records, 
-                on_conflict="player_name,market,bookmaker,game_date"
+            supabase.table("player_odds").upsert(
+                records,
+                on_conflict="player_name,market,bookmaker,game_date,matchup,line",
             ).execute()
-            
-            logger.info(f"Upsert exitoso. Registros subidos/actualizados: {len(records)}")
-        except Exception as e:
-            logger.error(f"Fallo crítico al subir cuotas a Supabase: {e}")
+            logger.info("Guardadas/actualizadas %s cuotas en Supabase player_odds.", len(records))
+        except Exception as exc:
+            logger.error("Error guardando en Supabase player_odds: %s", exc)
+
 
 if __name__ == "__main__":
     client = OddsAPIClient()
-    # 1. Extraer cuotas
-    odds_data = client.get_player_props()
-    # 2. Imprimir muestra
-    if odds_data:
-        print("\nMuestra de cuotas extraídas:")
-        print(pd.DataFrame(odds_data).head(10).to_string())
-    # 3. Guardar en Supabase
-    client.save_to_supabase(odds_data)
+    odds = client.get_player_props()
+    client.save_to_supabase(odds)
