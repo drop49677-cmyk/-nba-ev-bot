@@ -1,16 +1,19 @@
 {
   "player_market_scores": {
     "LeBron James || player_points": {
-      "points": 70,
-      "wins": 7,
+      "points": 110,
+      "wins": 11,
       "losses": 0,
-      "last_updated": "2026-06-03"
+      "last_updated": "2026-06-03",
+      "ai_adjustment": 0.0
     },
     "Stephen Curry || player_threes": {
-      "points": -70,
+      "points": -110,
       "wins": 0,
-      "losses": 7,
-      "last_updated": "2026-06-03"
+      "losses": 11,
+      "last_updated": "2026-06-03",
+      "ai_adjustment": -15.0,
+      "ai_notes": "Matchup defensivo difícil"
     }
   }
 }

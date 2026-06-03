@@ -209,8 +209,8 @@ def save_learning_scores(scores: dict):
         logger.error("Error guardando learning_scores.json: %s", e)
 
 
-def update_learning_scores(player: str, market: str, won: bool) -> tuple[int, int]:
-    """Actualiza los puntos de aprendizaje para un jugador y mercado. Retorna (puntos_nuevos, cambio)."""
+def update_learning_scores(player: str, market: str, won: bool, ai_adjustment: float = 0.0, ai_notes: str = "") -> tuple[int, int, float]:
+    """Actualiza los puntos de aprendizaje para un jugador y mercado. Retorna (puntos_nuevos, cambio, ai_adjustment_total)."""
     scores = load_learning_scores()
     key = f"{player} || {market}"
     if "player_market_scores" not in scores:
@@ -218,18 +218,25 @@ def update_learning_scores(player: str, market: str, won: bool) -> tuple[int, in
         
     db = scores["player_market_scores"]
     if key not in db:
-        db[key] = {"points": 0, "wins": 0, "losses": 0}
+        db[key] = {"points": 0, "wins": 0, "losses": 0, "ai_adjustment": 0.0, "ai_notes": ""}
         
     change = 10 if won else -10
     db[key]["points"] += change
     if won:
         db[key]["wins"] += 1
+        # Reducir paulatinamente el castigo de la IA si el jugador se recupera
+        db[key]["ai_adjustment"] = min(0.0, db[key].get("ai_adjustment", 0.0) + 2.0)
     else:
         db[key]["losses"] += 1
+        # Acumular el ajuste de la IA (hasta un tope de -15.0)
+        db[key]["ai_adjustment"] = max(-15.0, db[key].get("ai_adjustment", 0.0) + ai_adjustment)
+        if ai_notes:
+            db[key]["ai_notes"] = ai_notes
+            
     db[key]["last_updated"] = datetime.now().strftime("%Y-%m-%d")
     
     save_learning_scores(scores)
-    return db[key]["points"], change
+    return db[key]["points"], change, db[key]["ai_adjustment"]
 
 
 def display_bookie(bookie: str) -> str:
@@ -254,12 +261,12 @@ MARKET_TRANSLATIONS = {
 }
 
 
-def analyze_loss_with_gemini(player: str, market: str, bet: str, actual: float, line: float, odds: float, boxscore: dict) -> str:
+def analyze_loss_with_gemini(player: str, market: str, bet: str, actual: float, line: float, odds: float, boxscore: dict) -> tuple[float, str]:
+    """Usa la API de Gemini por debajo para evaluar si el fallo fue por varianza o sistemático y calibrar."""
     api_key = os.getenv("GEMINI_API_KEY") or os.getenv("GOOGLE_API_KEY")
     if not api_key:
-        return ""
+        return 0.0, ""
     
-    # Extraer minutos y rendimiento si están disponibles
     minutos = boxscore.get("MIN", "N/A") if isinstance(boxscore, dict) else "N/A"
     pts = boxscore.get("PTS", 0) if isinstance(boxscore, dict) else 0
     reb = boxscore.get("REB", 0) if isinstance(boxscore, dict) else 0
@@ -269,16 +276,21 @@ def analyze_loss_with_gemini(player: str, market: str, bet: str, actual: float, 
     market_es = MARKET_TRANSLATIONS.get(market, market)
     
     prompt = (
-        f"Eres un analista experto de apuestas de la NBA.\n"
-        f"Analiza por qué falló el pick deportivo:\n"
+        f"Analiza por qué falló el pick deportivo de la NBA:\n"
         f"- Jugador: {player}\n"
-        f"- Pick: {bet} {market_es} (Cuota: {odds})\n"
-        f"- Resultado real: {actual} (Línea original: {line})\n"
-        f"- Minutos jugados: {minutos}\n"
-        f"- Estadísticas del partido: PTS {pts}, REB {reb}, AST {ast}, Resultado {wl}\n\n"
-        f"Escribe un análisis súper conciso en español (máximo 150 caracteres o 2 frases cortas) "
-        f"explicando la causa más probable del fallo (ej. mala efectividad, defensa dura del rival, blowout/paliza, lesión o falta de minutos) "
-        f"y una lección corta. Sé directo, sin rodeos y muy profesional."
+        f"- Mercado: {market_es}\n"
+        f"- Pick: {bet} (Cuota: {odds})\n"
+        f"- Resultado real: {actual} (Línea: {line})\n"
+        f"- Minutos: {minutos}\n"
+        f"- Stats: PTS {pts}, REB {reb}, AST {ast}, Resultado {wl}\n\n"
+        f"Determina si el fallo fue por varianza/mala suerte (ej. Curry tiró 1/10 triples abiertos) "
+        f"o si es un fallo sistemático del modelo (ej. cambio de rol del jugador, defensa rival muy dura, reducción de minutos consistente, lesión).\n"
+        f"Devuelve obligatoriamente un objeto JSON con este formato exacto:\n"
+        f"{{\n"
+        f"  \"ai_adjustment\": <número entre -15.0 y 0.0, donde 0.0 es varianza/mala suerte y -15.0 es un grave error sistemático que exige penalizar mucho al jugador>,\n"
+        f"  \"reason\": \"<breve explicación técnica en una frase de por qué aplicas este ajuste (evita comillas dobles dentro del texto, usa comillas simples si es necesario)>\"\n"
+        f"}}\n"
+        f"No devuelvas ningún texto antes ni después del JSON."
     )
     
     url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key={api_key}"
@@ -288,25 +300,26 @@ def analyze_loss_with_gemini(player: str, market: str, bet: str, actual: float, 
             "parts": [{"text": prompt}]
         }],
         "generationConfig": {
-            "maxOutputTokens": 1200,
-            "temperature": 0.3
+            "maxOutputTokens": 2000,
+            "temperature": 0.2,
+            "responseMimeType": "application/json"
         }
     }
     
     try:
-        response = requests.post(url, json=payload, headers=headers, timeout=12)
+        response = requests.post(url, json=payload, headers=headers, timeout=25)
         if response.status_code == 200:
             res_json = response.json()
             text = res_json["candidates"][0]["content"]["parts"][0]["text"].strip()
-            # Limpiar comillas si las hay
-            if text.startswith('"') and text.endswith('"'):
-                text = text[1:-1]
-            return text
+            data = json.loads(text)
+            ai_adjustment = float(data.get("ai_adjustment", 0.0))
+            reason = data.get("reason", "")
+            return ai_adjustment, reason
         else:
             logger.warning("Error de API Gemini: %s - %s", response.status_code, response.text)
     except Exception as e:
-        logger.error("Error al conectar con Gemini API: %s", e)
-    return ""
+        logger.error("Error al conectar con Gemini API o parsear JSON: %s", e)
+    return 0.0, ""
 
 
 def send_daily_summary_telegram(graded_results: list[dict], date_str: str):
@@ -351,22 +364,18 @@ def send_daily_summary_telegram(graded_results: list[dict], date_str: str):
         actual_str = f"{r['actual']:g}" if r["actual"] is not None else "N/A"
         line_str = f"{r['line']:g}" if r["line"] is not None else "N/A"
 
-        # Formateo de reputación de aprendizaje
+        # Formateo de reputación de aprendizaje (puntos estándar e IA de forma numérica simple)
         change_sign = "+" if r["learning_change"] > 0 else ""
-        rep_str = f"🧠 <b>Reputación:</b> <code>{r['learning_points']} pts</code> ({change_sign}{r['learning_change']})"
+        ai_adj_str = f" | IA: {r['ai_adjustment']:.1f}" if r["ai_adjustment"] != 0.0 else ""
+        rep_str = f"🧠 <b>Reputación:</b> <code>{r['learning_points']} pts{ai_adj_str}</code> ({change_sign}{r['learning_change']})"
 
         msg += (
             f"{emoji} <b>{idx}. {instruction}</b>\n"
             f"  ├ <b>Real:</b> <code>{actual_str}</code> (Línea: {line_str})\n"
             f"  ├ <b>Cuota:</b> <code>{r['odds']}</code> en {bookie_es} | Stake: ${r['stake']:.2f}\n"
             f"  ├ <b>P&L:</b> <code>{profit_sign}${r['profit']:.2f}</code>\n"
-            f"  └ {rep_str}\n"
+            f"  └ {rep_str}\n\n"
         )
-        
-        if r["outcome"] == "loss" and r.get("gemini_analysis"):
-            msg += f"  └ ⚠️ <b>Análisis IA:</b> <i>{r['gemini_analysis']}</i>\n"
-            
-        msg += "\n"
 
     msg += (
         f"───────────────────────────\n"
@@ -454,13 +463,14 @@ def verify_yesterday_picks(supabase) -> dict:
         outcome = "win" if won else "loss"
         profit  = (stake * (odds - 1)) if won else -stake
 
-        # ── Reinforcement Learning: Actualizar puntos de aprendizaje ──
-        new_points, change = update_learning_scores(player, market, won)
-
-        # ── IA: Analizar pérdida con Gemini REST ──
-        gemini_analysis = ""
+        # ── IA: Analizar pérdida con Gemini REST de forma silenciosa para obtener el ajuste y la nota ──
+        ai_adjustment = 0.0
+        gemini_reason = ""
         if not won:
-            gemini_analysis = analyze_loss_with_gemini(player, market, bet_str, actual, line, odds, boxscore)
+            ai_adjustment, gemini_reason = analyze_loss_with_gemini(player, market, bet_str, actual, line, odds, boxscore)
+
+        # ── Reinforcement Learning: Actualizar puntos de aprendizaje ──
+        new_points, change, ai_adj_total = update_learning_scores(player, market, won, ai_adjustment, gemini_reason)
 
         try:
             supabase.table("bet_history").update({
@@ -471,9 +481,9 @@ def verify_yesterday_picks(supabase) -> dict:
 
             result_emoji = "✅" if won else "❌"
             logger.info(
-                "    %s %s %s %.1f | Real: %.1f | %s | P&L: %+.2f | IA: %s | Puntos: %s",
+                "    %s %s %s %.1f | Real: %.1f | %s | P&L: %+.2f | IA Adj: %.1f (Motivo: %s) | Puntos: %s",
                 result_emoji, player, side, line, actual, outcome.upper(), profit,
-                gemini_analysis or "N/A", new_points
+                ai_adjustment, gemini_reason or "N/A", new_points
             )
             
             graded_results.append({
@@ -489,7 +499,7 @@ def verify_yesterday_picks(supabase) -> dict:
                 "bookie": pick.get("bookie", ""),
                 "learning_points": new_points,
                 "learning_change": change,
-                "gemini_analysis": gemini_analysis
+                "ai_adjustment": ai_adj_total
             })
 
             if won:

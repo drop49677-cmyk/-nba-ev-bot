@@ -811,13 +811,17 @@ class EVAnalyzer:
         learning_key = f"{player_name} || {market}"
         learning_points = 0
         learning_adjustment = 0.0
+        ai_adjustment = 0.0
         
         if learning_key in self._learning_scores:
-            learning_points = self._learning_scores[learning_key].get("points", 0)
+            entry = self._learning_scores[learning_key]
+            learning_points = entry.get("points", 0)
             if learning_points > 0:
                 learning_adjustment = min(10.0, learning_points * 0.2)
             elif learning_points < 0:
                 learning_adjustment = max(-15.0, learning_points * 0.3)
+            
+            ai_adjustment = entry.get("ai_adjustment", 0.0)
 
         # Score compuesto con todos los ajustes
         score = (
@@ -829,7 +833,8 @@ class EVAnalyzer:
             + sharp_bonus                        # Señal sharp (±6)
             + vol_penalty                        # Penalización volatilidad (0 a -15)
             + consensus_bonus                    # Book consensus (±3)
-            + learning_adjustment                # Ajuste de IA por Puntos (±15)
+            + learning_adjustment                # Ajuste de reputación por Puntos (±15)
+            + ai_adjustment                      # Ajuste inteligente de la IA (hasta -15)
         )
 
         reasons = []
@@ -890,9 +895,9 @@ class EVAnalyzer:
         opp_info = f" OppAdj:{projection.get('opp_factor', 1.0):.2f}" if projection.get("opp_factor", 1.0) != 1.0 else ""
         
         ia_text = ""
-        if learning_points != 0:
-            adj_sign = "+" if learning_adjustment >= 0 else ""
-            ia_text = f"🧠 IA:{learning_points:g}pts({adj_sign}{learning_adjustment:.1f})"
+        if learning_points != 0 or ai_adjustment != 0.0:
+            adj_sign = "+" if (learning_adjustment + ai_adjustment) >= 0 else ""
+            ia_text = f"🧠 IA:{learning_points:g}pts/AI:{ai_adjustment:.1f}({adj_sign}{learning_adjustment + ai_adjustment:.1f})"
 
         info = (
             f"Proj:{projection['mean']:.1f} Med:{projection['median']:.1f} "
