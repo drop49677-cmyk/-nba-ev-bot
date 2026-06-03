@@ -1,0 +1,44 @@
+name: 🏁 NBA Nightly Results - Calificación en Tiempo Real
+
+on:
+  schedule:
+    - cron: '*/30 2-8 * * *'   # Cada 30 minutos entre las 9:00 PM y las 3:30 AM de Colombia (2:00 AM - 8:30 AM UTC)
+  workflow_dispatch:
+
+jobs:
+  verify-results:
+    name: Verificar y Calificar Partidos Finalizados
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: 📥 Checkout
+        uses: actions/checkout@v4
+
+      - name: 🐍 Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+
+      - name: 📦 Instalar dependencias
+        run: pip install -r requirements.txt
+
+      - name: 🔐 Crear .env
+        run: |
+          echo "SUPABASE_URL=${{ secrets.SUPABASE_URL }}" >> .env
+          echo "SUPABASE_KEY=${{ secrets.SUPABASE_KEY }}" >> .env
+          echo "TELEGRAM_BOT_TOKEN=${{ secrets.TELEGRAM_BOT_TOKEN }}" >> .env
+          echo "TELEGRAM_CHAT_ID=${{ secrets.TELEGRAM_CHAT_ID }}" >> .env
+          echo "GEMINI_API_KEY=${{ secrets.GEMINI_API_KEY }}" >> .env
+
+      - name: 🏁 Ejecutar Verificación Nocturna (verify_nightly.py)
+        run: python verify_nightly.py
+
+      - name: 🧠 Guardar memoria IA (learning_scores.json)
+        if: always()
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git add learning_scores.json
+          git diff --quiet && git diff --staged --quiet || (git commit -m "Update memory scores nocturno [skip ci]" && git push)

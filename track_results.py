@@ -399,9 +399,9 @@ def send_daily_summary_telegram(graded_results: list[dict], date_str: str):
         logger.error("Error enviando reporte diario a Telegram: %s", exc)
 
 
-def verify_yesterday_picks(supabase) -> dict:
+def verify_yesterday_picks(supabase, target_date: str = None) -> dict:
     """
-    Verifica los picks de ayer con resultados reales.
+    Verifica los picks de una fecha específica con resultados reales.
     Retorna stats de rendimiento y envía reporte de resultados.
     """
     if not supabase:
@@ -409,14 +409,15 @@ def verify_yesterday_picks(supabase) -> dict:
     if not ensure_bet_history_exists(supabase):
         return {}
 
-    yesterday = (datetime.now(timezone.utc) - timedelta(days=1)).strftime("%Y-%m-%d")
-    logger.info("Verificando picks del %s...", yesterday)
+    if target_date is None:
+        target_date = (datetime.now(timezone.utc) - timedelta(days=1)).strftime("%Y-%m-%d")
+    logger.info("Verificando picks del %s...", target_date)
 
     try:
         response = (
             supabase.table("bet_history")
             .select("*")
-            .eq("pick_date", yesterday)
+            .eq("pick_date", target_date)
             .eq("outcome", "pending")
             .execute()
         )
@@ -426,7 +427,7 @@ def verify_yesterday_picks(supabase) -> dict:
         return {}
 
     if not pending:
-        logger.info("  -> Sin picks pendientes de ayer.")
+        logger.info("  -> Sin picks pendientes del %s.", target_date)
         return _roi_summary(supabase)
 
     logger.info("  -> %s picks pendientes de verificar.", len(pending))
@@ -444,7 +445,7 @@ def verify_yesterday_picks(supabase) -> dict:
         parts = bet_str.split(" ")
         side  = parts[0] if parts else ""
 
-        boxscore = get_nba_boxscore(player, yesterday)
+        boxscore = get_nba_boxscore(player, target_date)
         if boxscore is None:
             logger.info("    -> %s: sin boxscore disponible. Quedará como pending.", player)
             continue
@@ -510,8 +511,8 @@ def verify_yesterday_picks(supabase) -> dict:
             logger.error("    -> Error actualizando %s: %s", player, exc)
 
     logger.info(
-        "Ayer: %s ganados | %s perdidos.",
-        wins, losses,
+        "Fecha %s: %s ganados | %s perdidos.",
+        target_date, wins, losses,
     )
 
     if graded_results:
