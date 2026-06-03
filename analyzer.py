@@ -181,6 +181,20 @@ class EVAnalyzer:
         self.is_fallback = False
         self.fallback_date = None
         self._coverage_summary = "Cobertura no calculada."
+        self._learning_scores: dict = {}
+        self.load_learning_scores()
+
+    def load_learning_scores(self):
+        path = "learning_scores.json"
+        if os.path.exists(path):
+            try:
+                with open(path, "r", encoding="utf-8") as f:
+                    self._learning_scores = json.load(f).get("player_market_scores", {})
+                logger.info("  -> Puntos de aprendizaje (IA) cargados.")
+            except Exception as e:
+                logger.error("Error cargando learning_scores.json: %s", e)
+        else:
+            self._learning_scores = {}
 
     def run_pipeline(self):
         return self.calculate_ev()
@@ -792,6 +806,19 @@ class EVAnalyzer:
         kelly       = self.kelly_criterion(effective_prob, odds)
         stake       = min(kelly * BANKROLL, BANKROLL * MAX_PLAYER_STAKE_PCT)
 
+        # ── Reinforcement Learning: Ajuste por Puntos de Aprendizaje ───────────────
+        player_name = row.get("player_name")
+        learning_key = f"{player_name} || {market}"
+        learning_points = 0
+        learning_adjustment = 0.0
+        
+        if learning_key in self._learning_scores:
+            learning_points = self._learning_scores[learning_key].get("points", 0)
+            if learning_points > 0:
+                learning_adjustment = min(10.0, learning_points * 0.2)
+            elif learning_points < 0:
+                learning_adjustment = max(-15.0, learning_points * 0.3)
+
         # Score compuesto con todos los ajustes
         score = (
             min(edge / 0.15, 1.0) * 32          # Peso del edge
@@ -802,6 +829,7 @@ class EVAnalyzer:
             + sharp_bonus                        # Señal sharp (±6)
             + vol_penalty                        # Penalización volatilidad (0 a -15)
             + consensus_bonus                    # Book consensus (±3)
+            + learning_adjustment                # Ajuste de IA por Puntos (±15)
         )
 
         reasons = []
@@ -860,13 +888,19 @@ class EVAnalyzer:
         cv = projection.get("cv", 0)
         line = float(row.get("line") or 0)
         opp_info = f" OppAdj:{projection.get('opp_factor', 1.0):.2f}" if projection.get("opp_factor", 1.0) != 1.0 else ""
+        
+        ia_text = ""
+        if learning_points != 0:
+            adj_sign = "+" if learning_adjustment >= 0 else ""
+            ia_text = f"🧠 IA:{learning_points:g}pts({adj_sign}{learning_adjustment:.1f})"
+
         info = (
             f"Proj:{projection['mean']:.1f} Med:{projection['median']:.1f} "
             f"L10:{projection['l10']:.1f} L5:{projection['l5']:.1f} L3:{projection.get('l3', 0):.1f} "
             f"Std:{projection['std']:.1f} CV:{cv:.2f} HR:{hit_rate*100:.0f}% G:{projection['games']}"
             f"{opp_info}"
         )
-        extras = [t for t in [sharp_text, consensus_text] if t]
+        extras = [t for t in [sharp_text, consensus_text, ia_text] if t]
         if extras:
             info = f"{info} | {' | '.join(extras)}"
 
@@ -1309,33 +1343,39 @@ class EVAnalyzer:
 
         url = f"https://api.telegram.org/bot{token}/sendMessage"
         msg = (
-            "<b>BOT EV ELITE v3 — APUESTAS MATEMATICAS DEL DIA</b>\n"
+            "<b>🏀 BOT EV ELITE v3 — APUESTAS MATEMÁTICAS DEL DÍA</b>\n"
             f"<i>Filtros: Prob>={MIN_PROB*100:.0f}% | EV>={MIN_EDGE*100:.0f}% | "
-            f"HR>=45% | MaxCV={MAX_CV_NO_PENALTY} | "
-            f"Max {MAX_PICKS_TOTAL} picks | Max {MAX_PICKS_PER_GAME} por partido</i>\n\n"
-            f"<i>Analizado: {self._coverage_summary}</i>\n\n"
+            f"HR>={MIN_OVER_HIT_RATE*100:.0f}% | MaxCV={MAX_CV_NO_PENALTY} | "
+            f"Max {MAX_PICKS_TOTAL} picks</i>\n"
+            f"<i>Analizado: {self._coverage_summary}</i>\n"
+            f"───────────────────────────\n\n"
         )
 
         for idx, bet in enumerate(ev_bets, 1):
             market_es = MARKET_TRANSLATIONS.get(bet["market"], bet["market"])
             name = bet["player/team"]
             if bet["market"] == "h2h":
-                instruction = f"Apuesta a que <b>{name} gana</b>"
+                instruction = f"<b>{name}</b> gana el partido"
             else:
-                side, line = bet["bet"].split(" ", 1)
-                side_es = "MAS DE" if side == "OVER" else "MENOS DE"
-                instruction = f"<b>{name}</b> {side_es} <b>{line}</b> {market_es}"
+                side, line_val = bet["bet"].split(" ", 1)
+                side_es = "MÁS DE" if side == "OVER" else "MENOS DE"
+                instruction = f"<b>{name}</b> {side_es} <b>{line_val}</b> {market_es}"
 
+            grade = bet["grade"]
+            grade_emoji = "🔥" if grade == "S" else ("⭐" if grade == "A" else "⚡")
             hit_rate_str = bet.get("hit_rate", "N/A")
+            
+            info_str = bet.get("info", "")
+
             text = (
-                f"<b>{idx}. [{bet['grade']}] {bet['flags']}</b>\n"
-                f"<b>Partido:</b> {bet.get('matchup', '?')} ({bet.get('game_time', '?')})\n"
-                f"<b>Pick:</b> {instruction}\n"
-                f"<b>Cuota:</b> {bet['odds']} en {display_bookie(bet['bookie'])}\n"
-                f"<b>Stake:</b> {bet['kelly_bet']}\n"
-                f"<b>Prob:</b> {bet['prob_real']} | Mercado: {bet['prob_novig']} | EV: {bet['edge']}\n"
-                f"<b>Hit Rate L10:</b> {hit_rate_str}\n"
-                f"<i>{bet.get('info', '')}</i>\n\n"
+                f"{grade_emoji} <b>{idx}. [{grade}] {bet['flags']}</b>\n"
+                f"🏀 <b>Partido:</b> {bet.get('matchup', '?')} ({bet.get('game_time', '?')})\n"
+                f"🎯 <b>Pick:</b> {instruction}\n"
+                f"💰 <b>Cuota:</b> <code>{bet['odds']}</code> en {display_bookie(bet['bookie'])} | Stake: <code>{bet['kelly_bet']}</code>\n"
+                f"📊 <b>Métricas:</b> Prob: <code>{bet['prob_real']}</code> | Consenso: <code>{bet['prob_novig']}</code> | EV: <code>{bet['edge']}</code>\n"
+                f"📈 <b>Hit Rate L10:</b> <code>{hit_rate_str}</code>\n"
+                f"ℹ️ <i>{info_str}</i>\n"
+                f"───────────────────────────\n\n"
             )
 
             if len(msg) + len(text) > 3900:
@@ -1378,11 +1418,20 @@ def display_bookie(bookie: str) -> str:
 def format_watchlist_html(watchlist: list[dict]) -> str:
     lines = []
     for idx, bet in enumerate(watchlist, 1):
+        market_es = MARKET_TRANSLATIONS.get(bet["market"], bet["market"])
+        parts = bet["bet"].split(" ", 1)
+        if len(parts) == 2:
+            side, line_val = parts
+            side_es = "MÁS DE" if side == "OVER" else "MENOS DE"
+            instruction = f"<b>{bet['player/team']}</b> {side_es} {line_val} {market_es}"
+        else:
+            instruction = f"<b>{bet['player/team']}</b> {bet['bet']}"
+            
         lines.append(
-            f"{idx}. <b>{bet['player/team']}</b> {bet['bet']} ({bet['market']}) "
-            f"@ {bet['odds']} | EV {bet['edge']} | HR {bet.get('hit_rate', '?')} | Score {bet['score']}"
+            f"👀 <b>{idx}. {instruction}</b>\n"
+            f"  └ Cuota: <code>{bet['odds']}</code> | EV: <code>{bet['edge']}</code> | HR: <code>{bet.get('hit_rate', '?')}</code> | Score: <code>{bet['score']}</code>"
         )
-    return "\n".join(lines)
+    return "\n\n".join(lines)
 
 
 if __name__ == "__main__":

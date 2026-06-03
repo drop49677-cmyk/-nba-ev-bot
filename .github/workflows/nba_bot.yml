@@ -39,6 +39,10 @@ jobs:
           echo "TELEGRAM_BOT_TOKEN=${{ secrets.TELEGRAM_BOT_TOKEN }}" >> .env
           echo "TELEGRAM_CHAT_ID=${{ secrets.TELEGRAM_CHAT_ID }}" >> .env
 
+      - name: 📈 Paso 0 — Verificar resultados de ayer (track_results.py)
+        run: python track_results.py
+        continue-on-error: true
+
       - name: 📊 Paso 1 — Cuotas + Line Movement (odds.py)
         run: python odds.py
 
@@ -48,6 +52,14 @@ jobs:
 
       - name: 🤖 Paso 3 — Análisis Elite + Telegram (analyzer.py)
         run: python analyzer.py
+
+      - name: 🧠 Guardar memoria IA (learning_scores.json)
+        if: always()
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git add learning_scores.json
+          git diff --quiet && git diff --staged --quiet || (git commit -m "Update memory scores [skip ci]" && git push)
 
       - name: 📁 Guardar logs
         if: always()
