@@ -281,14 +281,14 @@ def analyze_loss_with_gemini(player: str, market: str, bet: str, actual: float, 
         f"y una lección corta. Sé directo, sin rodeos y muy profesional."
     )
     
-    url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key={api_key}"
+    url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key={api_key}"
     headers = {"Content-Type": "application/json"}
     payload = {
         "contents": [{
             "parts": [{"text": prompt}]
         }],
         "generationConfig": {
-            "maxOutputTokens": 80,
+            "maxOutputTokens": 1200,
             "temperature": 0.3
         }
     }
